@@ -1,0 +1,98 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.lyrics-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  min-height: 150px;
+}
+
+.controls-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.play-button,
+.reset-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.play-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.play-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.reset-button {
+  background: white;
+  color: #667eea;
+}
+
+.reset-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.time-display {
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 25px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.map-section {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  min-height: 500px;
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .lyrics-section,
+  .map-section {
+    padding: 1rem;
+  }
+
+  .controls-section {
+    flex-direction: column;
+  }
+}

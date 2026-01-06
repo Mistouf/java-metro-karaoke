@@ -1,0 +1,52 @@
+.lyrics-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.lyric-line {
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.lyric-line.waiting {
+  opacity: 0.6;
+}
+
+.lyric-line.waiting p {
+  font-size: 1.3rem;
+  color: #999;
+  font-style: italic;
+}
+
+.lyric-line.active {
+  opacity: 1;
+}
+
+.lyric-text {
+  margin: 0 0 2rem 0;
+  font-size: 2.5rem;
+  line-height: 1.4;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Style RATP pour les stations intégrées dans le texte */
+.station-inline {
+  background: #003CA6; /* Bleu RATP officiel */
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 6px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  margin: 0 0.2rem;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 60, 166, 0.3);
+}
