@@ -12,7 +12,7 @@ Projet React pour un karaoké basé sur une chanson unique qui met en évidence 
 
 ✅ Affichage des paroles synchronisées
 ✅ Carte interactive du métro parisien
-✅ Mise en surbrillance des stations mentionnées
+✅ Mise en évidence des stations mentionnées
 ✅ Contrôles de lecture (Play/Pause/Reset)
 
 ## Prochaines étapes

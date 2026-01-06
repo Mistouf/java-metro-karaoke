@@ -1,47 +1,56 @@
 .app {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
 }
 
 .app-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  max-width: 100%;
+  margin: 0;
   width: 100%;
+  overflow: hidden;
+  min-height: 0;
 }
 
 .lyrics-section {
   background: white;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  min-height: 150px;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  height: auto;
+  position: relative;
 }
 
 .controls-section {
+  position: fixed;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
 }
 
 .play-button,
 .reset-button {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
   border: none;
-  border-radius: 25px;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: bold;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  min-width: 80px;
 }
 
 .play-button {
@@ -50,7 +59,7 @@
 }
 
 .play-button:hover {
-  transform: translateY(-2px);
+  transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -60,25 +69,28 @@
 }
 
 .reset-button:hover {
-  transform: translateY(-2px);
+  transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .time-display {
-  padding: 1rem 2rem;
+  padding: 0.6rem 1rem;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 25px;
+  border-radius: 20px;
   font-weight: bold;
   color: #667eea;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .map-section {
   background: white;
-  border-radius: 15px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   flex: 1;
-  min-height: 500px;
+  display: flex;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {

@@ -18,8 +18,7 @@ export const metroLyrics: LyricLine[] = [
     startTime: 4,
     endTime: 7.5,
     stations: [
-      { name: "Buttes", timestamp: 4.8 },
-      { name: "Chaumont", timestamp: 5.3 },
+      { name: "Buttes alors Chaumont", timestamp: 4.8 },
       { name: "Levallois", timestamp: 6.8 },
     ],
   },
@@ -56,7 +55,7 @@ export const metroLyrics: LyricLine[] = [
     stations: [
       { name: "Belle", timestamp: 17 },
       { name: "Porte", timestamp: 17.4 },
-      { name: "Jacques Bonsergent", timestamp: 18 },
+      { name: "Jacques le Bonsergent", timestamp: 18 },
       { name: "Gare", timestamp: 19 },
       { name: "Bagnolet", timestamp: 19.5 },
     ],
@@ -143,7 +142,7 @@ export const metroLyrics: LyricLine[] = [
     endTime: 48.5,
     stations: [
       { name: "Exelmans", timestamp: 46.8 },
-      { name: "Denfert-Rochereau", timestamp: 48 },
+      { name: "Denfert", timestamp: 48 },
     ],
   },
   {
@@ -158,11 +157,11 @@ export const metroLyrics: LyricLine[] = [
     ],
   },
   {
-    text: "Change de commerce, t'ont Clignancourt dans ta Cité",
+    text: "Change de Commerce, t'ont Clignancourt dans ta Cité",
     startTime: 52,
     endTime: 55,
     stations: [
-      { name: "commerce", timestamp: 52.8 },
+      { name: "Commerce", timestamp: 52.8 },
       { name: "Clignancourt", timestamp: 53.5 },
       { name: "Cité", timestamp: 54.5 },
     ],
@@ -191,6 +190,7 @@ export const metroLyrics: LyricLine[] = [
     startTime: 61.5,
     endTime: 64.5,
     stations: [
+      { name: "Comatec", timestamp: 62 },
       { name: "La Défonce", timestamp: 63.5 },
     ],
   },
