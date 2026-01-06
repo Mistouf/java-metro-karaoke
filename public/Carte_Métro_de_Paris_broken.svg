@@ -51,11 +51,6 @@
    y="815.68445"
    id="text27997"
    xml:space="preserve"
-   style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:45.1745224px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;marker:none;enable-background:accumulate"><tspan
-     x="72.394569"
-     y="815.68445"
-     id="tspan27999"
-     style="font-family:sans-serif" /></text>
 
 
 
@@ -8078,8 +8073,8 @@
    id="path9752"
    inkscape:connector-curvature="0" /><flowRoot
    xml:space="preserve"
-   id="flowRoot1945"><flowPara
-   id="flowPara1951" /></flowRoot><text
+   id="flowRoot1945"
+     id="flowPara1951" /></flowRoot><text
    x="5780.9907"
    y="1816.0239"
    id="text10269-637-3-63-35-58-4-6"

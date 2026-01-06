@@ -55,25 +55,72 @@ function App() {
     return activeStations;
   }, [currentTime, lyrics]);
 
+  // Durée totale de la chanson (en secondes)
+  const totalDuration =
+    lyrics.length > 0 ? lyrics[lyrics.length - 1].endTime : 217;
+
+  // Gestion du changement de position via la barre de progression
+  const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentTime(parseFloat(e.target.value));
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  // Calcul du pourcentage de progression pour le gradient
+  const progressPercentage = (currentTime / totalDuration) * 100;
+
+  // Gestion du plein écran
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
   return (
     <div className="app">
+      {/* Bouton Play/Pause flottant en haut à gauche */}
+      <button
+        onClick={togglePlayPause}
+        className="floating-play-button"
+        aria-label={isPlaying ? "Pause" : "Play"}
+      >
+        {isPlaying ? "⏸" : "▶"}
+      </button>
+
+      {/* Bouton Plein écran en haut à droite */}
+      <button
+        onClick={toggleFullscreen}
+        className="floating-fullscreen-button"
+        aria-label="Plein écran"
+      >
+        ⛶
+      </button>
+
       <main className="app-main">
         <section className="lyrics-section">
           <LyricsDisplay lyrics={lyrics} currentTime={currentTime} />
         </section>
 
-        <section className="controls-section">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="play-button"
-          >
-            {isPlaying ? "⏸ Pause" : "▶ Play"}
-          </button>
-          <button onClick={() => setCurrentTime(0)} className="reset-button">
-            ⏮ Reset
-          </button>
-          <div className="time-display">Temps: {currentTime.toFixed(1)}s</div>
-        </section>
+        {/* Barre de progression entre les deux blocs */}
+        <div className="progress-divider">
+          <input
+            type="range"
+            min="0"
+            max={totalDuration}
+            step="0.1"
+            value={currentTime}
+            onChange={handleProgressChange}
+            className="progress-slider"
+            style={{
+              background: `linear-gradient(to right, #667eea 0%, #764ba2 ${progressPercentage}%, #e0e0e0 ${progressPercentage}%, #e0e0e0 100%)`,
+            }}
+          />
+          <div className="progress-time">{currentTime.toFixed(1)}s</div>
+        </div>
 
         <section className="map-section">
           <MetroMap highlightedStations={highlightedStations} />
