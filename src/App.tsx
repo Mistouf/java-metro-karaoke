@@ -14,7 +14,6 @@ export interface StationMention {
 export interface LyricLine {
   text: string;
   startTime: number;
-  endTime: number;
   stations: StationMention[];
 }
 
@@ -23,8 +22,15 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Paroles complètes de la chanson
-  const lyrics = useMemo(() => metroLyrics, []);
+  // Mode édition de timing
+  const [timingEditMode, setTimingEditMode] = useState(false);
+  const [editedLyrics, setEditedLyrics] = useState<LyricLine[]>(metroLyrics);
+
+  // Paroles complètes de la chanson (édité ou original)
+  const lyrics = useMemo(
+    () => (timingEditMode ? editedLyrics : metroLyrics),
+    [timingEditMode, editedLyrics]
+  );
 
   // Synchronisation avec l'audio
   useEffect(() => {
@@ -65,27 +71,112 @@ function App() {
     }
   }, [isPlaying]);
 
+  // Gestion de la touche Espace pour Play/Pause et Ctrl+R pour le mode édition
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.code === "Space" && e.target === document.body) {
+        e.preventDefault();
+        setIsPlaying((prev) => !prev);
+      }
+
+      // Activer/désactiver le mode édition avec Ctrl+R
+      if (e.ctrlKey && e.key === "r") {
+        e.preventDefault();
+        setTimingEditMode((prev) => !prev);
+        console.log(
+          `Mode édition timing: ${!timingEditMode ? "ACTIVÉ" : "DÉSACTIVÉ"}`
+        );
+      }
+
+      // Exporter les modifications avec Ctrl+Shift+R
+      if (e.ctrlKey && e.shiftKey && e.key === "R") {
+        e.preventDefault();
+        exportTimings();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [timingEditMode]);
+
+  // Fonction pour exporter les timings modifiés
+  const exportTimings = () => {
+    const output = JSON.stringify(editedLyrics, null, 2);
+    console.log("=== TIMINGS MODIFIÉS ===");
+    console.log(`export const metroLyrics: LyricLine[] = ${output};`);
+
+    // Copier dans le presse-papier
+    navigator.clipboard
+      .writeText(`export const metroLyrics: LyricLine[] = ${output};`)
+      .then(() => {
+        alert("Timings copiés dans le presse-papier !");
+      });
+  };
+
+  // Fonctions pour ajuster les timings
+  const adjustLineStartTime = (lineIndex: number, delta: number) => {
+    setEditedLyrics((prev) => {
+      const newLyrics = [...prev];
+      newLyrics[lineIndex] = {
+        ...newLyrics[lineIndex],
+        startTime: Math.max(0, newLyrics[lineIndex].startTime + delta),
+      };
+      return newLyrics;
+    });
+  };
+
+  const adjustStationTimestamp = (
+    lineIndex: number,
+    stationIndex: number,
+    delta: number
+  ) => {
+    setEditedLyrics((prev) => {
+      const newLyrics = [...prev];
+      const newStations = [...newLyrics[lineIndex].stations];
+      newStations[stationIndex] = {
+        ...newStations[stationIndex],
+        timestamp: Math.max(0, newStations[stationIndex].timestamp + delta),
+      };
+      newLyrics[lineIndex] = {
+        ...newLyrics[lineIndex],
+        stations: newStations,
+      };
+      return newLyrics;
+    });
+  };
+
   // Calcul des stations en surbrillance selon le temps (animation de 1.5s)
-  const highlightedStations = useMemo(() => {
+  // et accumulation des stations révélées (permanent)
+  const { highlightedStations, revealedStations } = useMemo(() => {
     const ANIMATION_DURATION = 1.5; // durée de l'animation en secondes
     const activeStations: string[] = [];
+    const allRevealedStations: string[] = [];
 
     lyrics.forEach((line) => {
       line.stations.forEach((station) => {
         const timeSinceStation = currentTime - station.timestamp;
-        // La station est visible si elle vient d'être mentionnée (dans les 1.5s)
+
+        // La station est en animation si elle vient d'être mentionnée (dans les 1.5s)
         if (timeSinceStation >= 0 && timeSinceStation <= ANIMATION_DURATION) {
           activeStations.push(station.name);
+        }
+
+        // La station est révélée (carte en couleur) si elle a déjà été mentionnée
+        if (timeSinceStation >= 0) {
+          allRevealedStations.push(station.name);
         }
       });
     });
 
-    return activeStations;
+    return {
+      highlightedStations: activeStations,
+      revealedStations: allRevealedStations,
+    };
   }, [currentTime, lyrics]);
 
-  // Durée totale de la chanson (en secondes)
+  // Durée totale de la chanson (en secondes) - on ajoute ~5s après la dernière ligne
   const totalDuration =
-    lyrics.length > 0 ? lyrics[lyrics.length - 1].endTime : 217;
+    lyrics.length > 0 ? lyrics[lyrics.length - 1].startTime + 5 : 217;
 
   // Gestion du changement de position via la barre de progression
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,9 +226,41 @@ function App() {
         ⛶
       </button>
 
+      {/* Indicateur mode édition timing */}
+      {timingEditMode && (
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "rgba(102, 126, 234, 0.95)",
+            color: "white",
+            padding: "12px 24px",
+            borderRadius: "8px",
+            zIndex: 2000,
+            fontWeight: "bold",
+            fontSize: "14px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          }}
+        >
+          ⏱️ MODE ÉDITION TIMING
+          <br />
+          <small style={{ fontSize: "11px", opacity: 0.95 }}>
+            Ctrl+Shift+R pour exporter | Espace pour Play/Pause
+          </small>
+        </div>
+      )}
+
       <main className="app-main">
         <section className="lyrics-section">
-          <LyricsDisplay lyrics={lyrics} currentTime={currentTime} />
+          <LyricsDisplay
+            lyrics={lyrics}
+            currentTime={currentTime}
+            timingEditMode={timingEditMode}
+            onAdjustLineStartTime={adjustLineStartTime}
+            onAdjustStationTimestamp={adjustStationTimestamp}
+          />
         </section>
 
         {/* Barre de progression entre les deux blocs */}
@@ -158,7 +281,10 @@ function App() {
         </div>
 
         <section className="map-section">
-          <MetroMap highlightedStations={highlightedStations} />
+          <MetroMap
+            highlightedStations={highlightedStations}
+            revealedStations={revealedStations}
+          />
         </section>
       </main>
     </div>

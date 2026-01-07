@@ -6,13 +6,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "JAVA (Album Hawaï 2000) - METRO ",
     "startTime": 0,
-    "endTime": 10,
     "stations": []
   },
   {
     "text": "Fini les cocktails Malakoff, les idées de Marx, J'Dormoy",
     "startTime": 12.5,
-    "endTime": 16,
     "stations": [
       {
         "name": "Malakoff",
@@ -20,78 +18,73 @@ export const metroLyrics: LyricLine[] = [
       },
       {
         "name": "Marx, J'Dormoy",
-        "timestamp": 15
+        "timestamp": 14.5
       }
     ]
   },
   {
     "text": "Tu rames Buttes alors Chaumont plutôt qu'faire Levallois",
-    "startTime": 16,
-    "endTime": 19.5,
+    "startTime": 15.8,
     "stations": [
       {
         "name": "Buttes alors Chaumont",
-        "timestamp": 18.3
+        "timestamp": 16.2
       },
       {
         "name": "Levallois",
-        "timestamp": 20.3
+        "timestamp": 17
       }
     ]
   },
   {
     "text": "L'volontaire, pour l'Ecole Militaire y'a maldonne",
-    "startTime": 23.5,
-    "endTime": 26.5,
+    "startTime": 18.7,
     "stations": [
       {
         "name": "volontaire",
-        "timestamp": 24
+        "timestamp": 19.1
       },
       {
         "name": "Ecole Militaire",
-        "timestamp": 25.5
+        "timestamp": 20
       }
     ]
   },
   {
-    "text": "Plutôt crever qu'donner sa Sèvres à Babylone",
-    "startTime": 26.5,
-    "endTime": 29.5,
+    "text": "Plutôt crever qu'donner sa Sève à Babylone",
+    "startTime": 21.4,
     "stations": [
       {
-        "name": "Sèvres à Babylone",
-        "timestamp": 27.8
+        "name": "Sève à Babylone",
+        "timestamp": 22
       }
     ]
   },
   {
     "text": "Ca s'Passy, ça t'Férino Plassy",
-    "startTime": 29.5,
-    "endTime": 32,
+    "startTime": 24,
     "stations": [
       {
         "name": "Passy",
-        "timestamp": 30.5
+        "timestamp": 25
       },
       {
-        "name": "Férino Plassy",
-        "timestamp": 31.2
+        "name": "ça t'Férino",
+        "timestamp": 26
+      },
+      {
+        "name": "Plassy",
+        "timestamp": 26
       }
     ]
   },
   {
     "text": "Tu vois une Belle Porte quand Jacques le Bonsergent Gare sa Bagnolet d'vant ma",
     "startTime": 32,
-    "endTime": 36,
     "stations": [
       {
-        "name": "Belle",
+        "name": "Belle Porte",
         "timestamp": 33
-      },
-      {
-        "name": "Porte",
-        "timestamp": 33.4
       },
       {
         "name": "Jacques le Bonsergent",
@@ -110,7 +103,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Porte d'Orléans... merdeur, un flic Ternes sans odeur",
     "startTime": 36,
-    "endTime": 39.5,
     "stations": [
       {
         "name": "Porte d'Orléans",
@@ -125,7 +117,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Raconte un Monceau d'Clichy que tout le monde connaît Pasteur",
     "startTime": 39.5,
-    "endTime": 43,
     "stations": [
       {
         "name": "Monceau",
@@ -144,7 +135,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "On s'en bat Marcel on a l'Bérault les Billancourt-celles",
     "startTime": 43,
-    "endTime": 46.5,
     "stations": [
       {
         "name": "Marcel",
@@ -157,13 +147,16 @@ export const metroLyrics: LyricLine[] = [
       {
         "name": "Billancourt",
         "timestamp": 46
+      },
+            {
+        "name": "Courcelles",
+        "timestamp": 46
       }
     ]
   },
   {
     "text": "Qui font les Iéna, les cartons d'Vavin souhaitent la Bienvenüe à",
     "startTime": 46.5,
-    "endTime": 50,
     "stations": [
       {
         "name": "Iéna",
@@ -182,11 +175,14 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Montparnasse, faut qu'j'vide mes bourses Rue de la Pompe",
     "startTime": 50,
-    "endTime": 53,
     "stations": [
       {
         "name": "Montparnasse",
         "timestamp": 50.5
+      },
+            {
+        "name": "Bourse",
+        "timestamp": 51
       },
       {
         "name": "Rue de la Pompe",
@@ -197,7 +193,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Mon Piquet dans ta Motte Montgallet dans tes trompes",
     "startTime": 53,
-    "endTime": 56,
     "stations": [
       {
         "name": "Piquet dans ta Motte",
@@ -212,7 +207,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Ta Châtelet pourrie sent la Poissonnière",
     "startTime": 56,
-    "endTime": 58.5,
     "stations": [
       {
         "name": "Châtelet",
@@ -227,7 +221,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "C'est d'la Charenton, c'est pas du Luxembourg, Fille du calvaire !",
     "startTime": 58.5,
-    "endTime": 62,
     "stations": [
       {
         "name": "Charenton",
@@ -246,7 +239,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "J'ai attrapé d'l'Exelmans, c'est Denfert",
     "startTime": 62,
-    "endTime": 64.5,
     "stations": [
       {
         "name": "Exelmans",
@@ -261,7 +253,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "J'prends l'Chemin Vert au lieu Trocadéro à Blanche j'respire le Bel-Air",
     "startTime": 64.5,
-    "endTime": 68,
     "stations": [
       {
         "name": "Chemin Vert",
@@ -284,7 +275,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Change de Commerce, t'ont Clignancourt dans ta Cité",
     "startTime": 68,
-    "endTime": 71,
     "stations": [
       {
         "name": "Commerce",
@@ -303,7 +293,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Pour Wagram de hashich Parmentier, pour cacher le Havre",
     "startTime": 71,
-    "endTime": 74.5,
     "stations": [
       {
         "name": "Wagram",
@@ -322,7 +311,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Pour Caumartin, monter jusqu'aux Champs-Elysées",
     "startTime": 74.5,
-    "endTime": 77.5,
     "stations": [
       {
         "name": "Caumartin",
@@ -337,7 +325,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Pour Comatec sur la grande arche de La Défonce",
     "startTime": 77.5,
-    "endTime": 80.5,
     "stations": [
       {
         "name": "Comatec",
@@ -352,7 +339,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy par le rythme saccadé",
     "startTime": 80.5,
-    "endTime": 84,
     "stations": [
       {
         "name": "Bercy",
@@ -363,13 +349,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Ma musique s'est perdue dans les couloirs...",
     "startTime": 84,
-    "endTime": 87,
     "stations": []
   },
   {
     "text": "T'es sur l'bon rail en Dupleix du Quai de la Rapée",
     "startTime": 87,
-    "endTime": 90.5,
     "stations": [
       {
         "name": "Dupleix",
@@ -384,7 +368,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Odéon joue nos vies, c'est Saint-Lazare...",
     "startTime": 90.5,
-    "endTime": 94,
     "stations": [
       {
         "name": "Odéon",
@@ -399,7 +382,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Laisse-toi Bercy...",
     "startTime": 94,
-    "endTime": 97,
     "stations": [
       {
         "name": "Bercy",
@@ -410,13 +392,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Hey, oh, quoi, hein ?",
     "startTime": 97,
-    "endTime": 99,
     "stations": []
   },
   {
     "text": "Ramène pas ton Kléber, me cherche pas les Tuileries",
     "startTime": 99,
-    "endTime": 102.5,
     "stations": [
       {
         "name": "Kléber",
@@ -431,7 +411,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Joue pas les Raspail à c'petit jeu Gabriel Péri",
     "startTime": 102.5,
-    "endTime": 106,
     "stations": [
       {
         "name": "Raspail",
@@ -444,16 +423,15 @@ export const metroLyrics: LyricLine[] = [
     ]
   },
   {
-    "text": "Tu dis qu't'es Foch, t'as pas Saint-Cloud",
+    "text": "Tu dis qu't'es Foch, t'as Pas Saint-Cloud",
     "startTime": 106,
-    "endTime": 108.5,
     "stations": [
       {
         "name": "Foch",
         "timestamp": 106.8
       },
       {
-        "name": "Pont de Saint-Cloud",
+        "name": "Pas de Saint-Cloud",
         "timestamp": 108
       }
     ]
@@ -461,18 +439,17 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Mon Neuilly, ça s'voit sur ta gueule que tu Porte le Maillot d'Auteuil",
     "startTime": 108.5,
-    "endTime": 112,
     "stations": [
       {
         "name": "Neuilly",
         "timestamp": 109
       },
       {
-        "name": "Porte Maillot",
+        "name": "Porte le Maillot",
         "timestamp": 110.5
       },
       {
-        "name": "Michel-Ange Auteuil",
+        "name": "Auteuil",
         "timestamp": 111.5
       }
     ]
@@ -480,14 +457,13 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Me fais pas Gobelins Censier d'la Dauben(Bâ)ton",
     "startTime": 112,
-    "endTime": 115,
     "stations": [
       {
         "name": "Gobelins",
         "timestamp": 112.8
       },
       {
-        "name": "Censier-Daubenton",
+        "name": "Censier d'la Dauben(Bâ)ton",
         "timestamp": 113.8
       }
     ]
@@ -495,7 +471,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Comme des Picpus-ckets on va t'Barbès tes Louis Blanc",
     "startTime": 115,
-    "endTime": 118.5,
     "stations": [
       {
         "name": "Picpus",
@@ -514,12 +489,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Choisy-le-roi moi j'Bourg-la-Reine, Port Royal",
     "startTime": 118.5,
-    "endTime": 121.5,
     "stations": [
       {
-        "name": "Mairie de Montreuil",
+        "name": "Choisy-le-roi",
         "timestamp": 119
-      },
+      },  
       {
         "name": "Bourg-la-Reine",
         "timestamp": 120
@@ -533,7 +507,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "T'as voulu la Couronnes ? Maintenant tu peux toujours tracer à Varenne, Charonne !",
     "startTime": 121.5,
-    "endTime": 125.5,
     "stations": [
       {
         "name": "Couronnes",
@@ -552,7 +525,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Voltaire part sous la Guillotine",
     "startTime": 125.5,
-    "endTime": 127.5,
     "stations": [
       {
         "name": "Voltaire",
@@ -563,7 +535,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "On t'retrouvera à Bastille pas le temps de t'exiler à Argentine",
     "startTime": 127.5,
-    "endTime": 131,
     "stations": [
       {
         "name": "Bastille",
@@ -578,7 +549,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Pantin ! J'vais t'Dugommier t'emBrochant à La Fourche Hoche la teuté",
     "startTime": 131,
-    "endTime": 135,
     "stations": [
       {
         "name": "Pantin",
@@ -589,7 +559,7 @@ export const metroLyrics: LyricLine[] = [
         "timestamp": 132.2
       },
       {
-        "name": "Brochant",
+        "name": "emBrochant",
         "timestamp": 133
       },
       {
@@ -605,7 +575,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Au Saint-Sulpice c'est un Crimée Sentier, oui on sait c'que tu Vaugirard-ment vu Pyrénées-rgumène",
     "startTime": 135,
-    "endTime": 140,
     "stations": [
       {
         "name": "Saint-Sulpice",
@@ -632,8 +601,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "T'es condamné à errer dans l'Marais et faire la drag-Rennes",
     "startTime": 140,
-    "endTime": 143.5,
     "stations": [
+      {
+        "name": "Marais",
+        "timestamp": 141.8
+      },
       {
         "name": "Rennes",
         "timestamp": 142.8
@@ -643,7 +615,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "T'auras beau mettre la Réaumur-Sébastopol",
     "startTime": 143.5,
-    "endTime": 146,
     "stations": [
       {
         "name": "Réaumur-Sébastopol",
@@ -652,9 +623,8 @@ export const metroLyrics: LyricLine[] = [
     ]
   },
   {
-    "text": "Tu t'feras prendre à l'Anvers à la station... par Saint-Paul",
+    "text": "Tu t'feras prendre à l'Anvers à la station Anus par Saint-Paul",
     "startTime": 146,
-    "endTime": 149.5,
     "stations": [
       {
         "name": "Anvers",
@@ -669,7 +639,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Abbesses le froc Gambetta !",
     "startTime": 149.5,
-    "endTime": 151.5,
     "stations": [
       {
         "name": "Abbesses",
@@ -684,7 +653,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Il te met son Jourdain son Ménilmontant c'est Duroc",
     "startTime": 151.5,
-    "endTime": 154.5,
     "stations": [
       {
         "name": "Jourdain",
@@ -703,7 +671,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Tout droit dans l'Haussmann t'as l'Daumesnil la Clichy tu gémis",
     "startTime": 154.5,
-    "endTime": 158,
     "stations": [
       {
         "name": "Haussmann",
@@ -722,7 +689,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "T'es Invalides t'as l'trou de Balard en fer, Mai(s j')rie d'Issy",
     "startTime": 158,
-    "endTime": 161.5,
     "stations": [
       {
         "name": "Invalides",
@@ -733,7 +699,7 @@ export const metroLyrics: LyricLine[] = [
         "timestamp": 159.8
       },
       {
-        "name": "Mairie d'Issy",
+        "name": "Mai(s j')rie d'Issy",
         "timestamp": 161
       }
     ]
@@ -741,14 +707,13 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Va t'faire Masséna par Edgar le Quinet",
     "startTime": 161.5,
-    "endTime": 164,
     "stations": [
       {
         "name": "Masséna",
         "timestamp": 162.5
       },
       {
-        "name": "Edgar Quinet",
+        "name": "Edgar le Quinet",
         "timestamp": 163.5
       }
     ]
@@ -756,7 +721,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Faut qu'on t'Opéra, trop tard t'es Saint-Maur et j'Porte des Lilas",
     "startTime": 164,
-    "endTime": 167.5,
     "stations": [
       {
         "name": "Opéra",
@@ -775,7 +739,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Sur ton Corvisart, direction Père Lachaise",
     "startTime": 167.5,
-    "endTime": 170,
     "stations": [
       {
         "name": "Corvisart",
@@ -790,7 +753,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Sablons le Champerret, criant au nom d'la Ligne 13",
     "startTime": 170,
-    "endTime": 173.5,
     "stations": [
       {
         "name": "Sablons",
@@ -805,7 +767,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy par le rythme saccadé",
     "startTime": 173.5,
-    "endTime": 177,
     "stations": [
       {
         "name": "Bercy",
@@ -816,13 +777,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Ma musique s'est perdue dans les couloirs...",
     "startTime": 177,
-    "endTime": 180,
     "stations": []
   },
   {
     "text": "T'es sur l'bon rail en Dupleix du Quai de la Rapée",
     "startTime": 180,
-    "endTime": 183.5,
     "stations": [
       {
         "name": "Dupleix",
@@ -837,7 +796,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Odéon joue nos vies, c'est Saint-Lazare...",
     "startTime": 183.5,
-    "endTime": 187,
     "stations": [
       {
         "name": "Odéon",
@@ -852,7 +810,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy par le rythme saccadé",
     "startTime": 187,
-    "endTime": 190.5,
     "stations": [
       {
         "name": "Bercy",
@@ -863,13 +820,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Ma musique s'est perdue dans les couloirs...",
     "startTime": 190.5,
-    "endTime": 193.5,
     "stations": []
   },
   {
     "text": "T'es sur l'bon rail en Dupleix du Quai de la Rapée",
     "startTime": 193.5,
-    "endTime": 197,
     "stations": [
       {
         "name": "Dupleix",
@@ -884,7 +839,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Odéon joue nos vies, c'est Saint-Lazare...",
     "startTime": 197,
-    "endTime": 200.5,
     "stations": [
       {
         "name": "Odéon",
@@ -899,7 +853,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy par le rythme saccadé",
     "startTime": 200.5,
-    "endTime": 204,
     "stations": [
       {
         "name": "Bercy",
@@ -910,13 +863,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Ma musique s'est perdue dans les couloirs...",
     "startTime": 204,
-    "endTime": 207,
     "stations": []
   },
   {
     "text": "T'es sur l'bon rail en Dupleix du Quai de la Rapée",
     "startTime": 207,
-    "endTime": 210.5,
     "stations": [
       {
         "name": "Dupleix",
@@ -931,7 +882,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Odéon joue nos vies, c'est Saint-Lazare...",
     "startTime": 210.5,
-    "endTime": 214,
     "stations": [
       {
         "name": "Odéon",
@@ -946,7 +896,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy par le rythme saccadé",
     "startTime": 214,
-    "endTime": 217.5,
     "stations": [
       {
         "name": "Bercy",
@@ -957,13 +906,11 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Ma musique s'est perdue dans les couloirs...",
     "startTime": 217.5,
-    "endTime": 220.5,
     "stations": []
   },
   {
     "text": "T'es sur l'bon rail en Dupleix du Quai de la Rapée",
     "startTime": 220.5,
-    "endTime": 224,
     "stations": [
       {
         "name": "Dupleix",
@@ -978,7 +925,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Odéon joue nos vies, c'est Saint-Lazare...",
     "startTime": 224,
-    "endTime": 227.5,
     "stations": [
       {
         "name": "Odéon",
@@ -993,7 +939,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy",
     "startTime": 227.5,
-    "endTime": 230,
     "stations": [
       {
         "name": "Bercy",
@@ -1004,7 +949,6 @@ export const metroLyrics: LyricLine[] = [
   {
     "text": "Alors laisse-toi Bercy",
     "startTime": 230,
-    "endTime": 233,
     "stations": [
       {
         "name": "Bercy",

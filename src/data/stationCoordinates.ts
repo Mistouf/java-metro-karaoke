@@ -155,6 +155,10 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "x": 3112.5413,
     "y": 3957.7188
   },
+    "Mairie d'Issy": {
+    "x": 3112.5413,
+    "y": 3957.7188
+  },
   "Wagram": {
     "x": 3019.3838,
     "y": 1528.0261
@@ -424,6 +428,18 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "y": 3566.8733
   },
   "Sèvres - Babylone": {
+    "x": 3634.626220703125,
+    "y": 3678.05908203125
+  },
+    "Bourse": {
+    "x": 3634.626220703125,
+    "y": 3678.05908203125
+  },
+    "Courcelles": {
+    "x": 3634.626220703125,
+    "y": 3678.05908203125
+  },
+   "Solférino": {
     "x": 3634.626220703125,
     "y": 3678.05908203125
   },

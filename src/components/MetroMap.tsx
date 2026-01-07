@@ -4,7 +4,8 @@ import { stationMapping } from "../data/metroData";
 import { stationCoordinates } from "../data/stationCoordinates";
 
 interface MetroMapProps {
-  highlightedStations: string[];
+  highlightedStations: string[]; // Stations en cours d'animation (cercles)
+  revealedStations: string[]; // Stations déjà révélées (carte en couleur)
 }
 
 // Mode édition : activé avec Ctrl+E (à retirer en production)
@@ -22,7 +23,7 @@ const ZOOM_Y = 650;
 const ZOOM_WIDTH = 3712;
 const ZOOM_HEIGHT = 3849;
 
-function MetroMap({ highlightedStations }: MetroMapProps) {
+function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
   const grayImageRef = useRef<HTMLImageElement>(null);
   const colorImageRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -110,9 +111,25 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
   };
 
   // Mapper les noms de la chanson vers les vrais noms de stations
-  const mappedHighlightedStations = highlightedStations.map(
-    (station) => stationMapping[station] || station
-  );
+  const mappedHighlightedStations = highlightedStations.map((station) => {
+    const mappedName = stationMapping[station];
+    if (!mappedName) {
+      console.warn(
+        `⚠️ Station "${station}" non trouvée dans le mapping - utilisation du nom brut`
+      );
+    }
+    return mappedName || station;
+  });
+
+  const mappedRevealedStations = revealedStations.map((station) => {
+    const mappedName = stationMapping[station];
+    if (!mappedName) {
+      console.warn(
+        `⚠️ Station "${station}" non trouvée dans le mapping - utilisation du nom brut`
+      );
+    }
+    return mappedName || station;
+  });
 
   // Calculer le viewBox selon le mode zoom
   const viewBox = zoomMode
@@ -156,17 +173,32 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
     return { x: constrainedX, y: constrainedY, isConstrained };
   };
 
-  // Obtenir les coordonnées des stations (avec les coordonnées custom si elles existent)
+  // Cercles d'animation (stations en cours d'animation seulement)
   const circles = mappedHighlightedStations
     .map((stationName) => {
       const coords =
         customCoords[stationName] || stationCoordinates[stationName];
-      if (!coords) return null;
+      if (!coords) {
+        console.error(
+          `❌ Impossible d'animer la station "${stationName}" : coordonnées introuvables dans stationCoordinates`
+        );
+        return null;
+      }
 
       // En mode zoom, contraindre les positions au bord si hors du cadre
       const adjusted = zoomMode
         ? constrainToViewBox(coords.x, coords.y)
         : { x: coords.x, y: coords.y, isConstrained: false };
+
+      if (adjusted.isConstrained) {
+        console.info(
+          `ℹ️ Station "${stationName}" hors du cadre zoom - position contrainte aux bords (${coords.x.toFixed(
+            0
+          )}, ${coords.y.toFixed(0)}) → (${adjusted.x.toFixed(
+            0
+          )}, ${adjusted.y.toFixed(0)})`
+        );
+      }
 
       return {
         name: stationName,
@@ -184,6 +216,28 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
         y: number;
         isConstrained: boolean;
       } => coord !== null
+    );
+
+  // Toutes les stations révélées (pour le masque de la carte en couleur)
+  const revealedCircles = mappedRevealedStations
+    .map((stationName) => {
+      const coords =
+        customCoords[stationName] || stationCoordinates[stationName];
+      if (!coords) {
+        console.error(
+          `❌ Impossible de révéler la station "${stationName}" : coordonnées introuvables dans stationCoordinates`
+        );
+        return null;
+      }
+
+      return {
+        name: stationName,
+        x: coords.x,
+        y: coords.y,
+      };
+    })
+    .filter(
+      (coord): coord is { name: string; x: number; y: number } => coord !== null
     );
 
   return (
@@ -265,8 +319,8 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
           <mask id="circle-mask">
             {/* Fond noir (invisible) */}
             <rect width="100%" height="100%" fill="black" />
-            {/* Cercles blancs (visibles) pour révéler le plan couleur */}
-            {circles.map((circle, index) => (
+            {/* Cercles blancs (visibles) pour révéler le plan couleur - toutes les stations révélées */}
+            {revealedCircles.map((circle, index) => (
               <circle
                 key={index}
                 cx={circle.x}
@@ -311,9 +365,9 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
               cx={circle.x}
               cy={circle.y}
               r="200"
-              fill="rgba(255, 51, 102, 0.2)"
-              stroke="#FF3366"
-              strokeWidth="15"
+              fill="rgba(0, 60, 166, 0.3)"
+              stroke="#003CA6"
+              strokeWidth="18"
               className="station-circle"
               style={{ pointerEvents: editMode ? "all" : "none" }}
             />
@@ -321,8 +375,8 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
             <circle
               cx={circle.x}
               cy={circle.y}
-              r="25"
-              fill={editMode ? "#FF3366" : "#FF336600"}
+              r="30"
+              fill={editMode ? "#003CA6" : "#003CA600"}
               className="station-dot"
               style={{ pointerEvents: editMode ? "all" : "none" }}
             />

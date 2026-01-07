@@ -2,7 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #003CA6; /* Bleu RATP officiel */
   overflow: hidden;
   position: relative;
 }
@@ -11,58 +11,64 @@
   position: fixed;
   top: 1rem;
   left: 1rem;
-  width: 64px;
-  height: 64px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  font-size: 1.5rem;
+  border: 4px solid #003CA6; /* Bleu RATP */
+  background: #FFFFFF;
+  color: #003CA6; /* Bleu RATP */
+  font-size: 1.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 60, 166, 0.4);
+  font-weight: bold;
 }
 
 .floating-play-button:hover {
-  transform: scale(1.15);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.7);
+  transform: scale(1.1);
+  background: #003CA6;
+  color: white;
+  box-shadow: 0 6px 18px rgba(0, 60, 166, 0.6);
 }
 
 .floating-play-button:active {
-  transform: scale(1.05);
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 60, 166, 0.5);
 }
 
 .floating-fullscreen-button {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  border: 3px solid #003CA6;
+  background: #FFFFFF;
+  color: #003CA6;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 3px 10px rgba(0, 60, 166, 0.3);
 }
 
 .floating-fullscreen-button:hover {
-  transform: scale(1.15);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.7);
+  transform: scale(1.08);
+  background: #003CA6;
+  color: white;
+  box-shadow: 0 4px 14px rgba(0, 60, 166, 0.5);
 }
 
 .floating-fullscreen-button:active {
-  transform: scale(1.05);
+  transform: scale(0.95);
 }
 
 .app-main {
@@ -138,8 +144,8 @@
 
 .progress-slider {
   flex: 1;
-  height: 4px;
-  border-radius: 2px;
+  height: 6px;
+  border-radius: 3px;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
@@ -147,55 +153,60 @@
 }
 
 .progress-slider::-webkit-slider-track {
-  height: 4px;
-  border-radius: 2px;
+  height: 6px;
+  border-radius: 3px;
   background: transparent;
 }
 
 .progress-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: white; /* Blanc */
+  border: 3px solid #003CA6; /* Bordure bleue RATP */
   cursor: pointer;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(0, 60, 166, 0.3);
   transition: all 0.2s ease;
 }
 
 .progress-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.3);
+  transform: scale(1.25);
+  box-shadow: 0 3px 10px rgba(0, 60, 166, 0.6);
 }
 
 .progress-slider::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
+  height: 6px;
+  border-radius: 3px;
   background: transparent;
 }
 
 .progress-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: white;
+  border: 3px solid #003CA6;
   cursor: pointer;
-  border: none;
-  box-shadow: none;
+  box-shadow: 0 2px 6px rgba(0, 60, 166, 0.3);
   transition: all 0.2s ease;
 }
 
 .progress-slider::-moz-range-thumb:hover {
-  transform: scale(1.3);
+  transform: scale(1.25);
+  box-shadow: 0 3px 10px rgba(0, 60, 166, 0.6);
 }
 
 .progress-time {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #667eea;
-  min-width: 45px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #003CA6;
+  min-width: 50px;
   text-align: right;
   flex-shrink: 0;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
 }
 
 .controls-section {

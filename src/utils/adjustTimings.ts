@@ -7,7 +7,7 @@ import type { LyricLine } from "../App";
 export function listLines(): void {
   console.log("=== LISTE DES LIGNES ===");
   metroLyrics.forEach((line, index) => {
-    console.log(`[${index}] ${line.startTime}s-${line.endTime}s : "${line.text.substring(0, 50)}${line.text.length > 50 ? '...' : ''}"`);
+    console.log(`[${index}] ${line.startTime}s : "${line.text.substring(0, 50)}${line.text.length > 50 ? '...' : ''}"`);
   });
   console.log(`\nTotal: ${metroLyrics.length} lignes`);
 }
@@ -28,7 +28,7 @@ export function findLine(searchText: string): void {
   
   console.log(`=== ${results.length} RÉSULTAT(S) POUR "${searchText}" ===`);
   results.forEach(({ line, index }) => {
-    console.log(`[${index}] ${line.startTime}s-${line.endTime}s : "${line.text}"`);
+    console.log(`[${index}] ${line.startTime}s : "${line.text}"`);
   });
 }
 
@@ -36,12 +36,10 @@ export function findLine(searchText: string): void {
  * Ajuste le timing d'une ligne et décale toutes les lignes suivantes
  * @param lineIndex Index de la ligne à ajuster (commence à 0)
  * @param newStartTime Nouveau startTime pour cette ligne
- * @param newEndTime Nouveau endTime pour cette ligne
  */
 export function adjustLineAndShift(
   lineIndex: number,
-  newStartTime: number,
-  newEndTime: number
+  newStartTime: number
 ): LyricLine[] {
   const adjustedLyrics = [...metroLyrics];
   
@@ -50,19 +48,18 @@ export function adjustLineAndShift(
     return adjustedLyrics;
   }
 
-  const oldEndTime = adjustedLyrics[lineIndex].endTime;
-  const shift = newEndTime - oldEndTime;
+  const oldStartTime = adjustedLyrics[lineIndex].startTime;
+  const shift = newStartTime - oldStartTime;
 
   console.log(`📝 Ligne [${lineIndex}]: "${adjustedLyrics[lineIndex].text}"`);
-  console.log(`   Ancien timing: ${adjustedLyrics[lineIndex].startTime}s - ${oldEndTime}s`);
-  console.log(`   Nouveau timing: ${newStartTime}s - ${newEndTime}s`);
+  console.log(`   Ancien timing: ${oldStartTime}s`);
+  console.log(`   Nouveau timing: ${newStartTime}s`);
   console.log(`   Décalage appliqué aux lignes suivantes: ${shift > 0 ? '+' : ''}${shift}s`);
 
   // Ajuster la ligne courante
   adjustedLyrics[lineIndex] = {
     ...adjustedLyrics[lineIndex],
     startTime: newStartTime,
-    endTime: newEndTime,
   };
 
   // Décaler toutes les lignes suivantes
@@ -70,7 +67,6 @@ export function adjustLineAndShift(
     adjustedLyrics[i] = {
       ...adjustedLyrics[i],
       startTime: adjustedLyrics[i].startTime + shift,
-      endTime: adjustedLyrics[i].endTime + shift,
       stations: adjustedLyrics[i].stations.map(station => ({
         ...station,
         timestamp: station.timestamp + shift,
@@ -85,7 +81,6 @@ export function adjustLineAndShift(
     console.log(`  {`);
     console.log(`    text: "${line.text}",`);
     console.log(`    startTime: ${line.startTime},`);
-    console.log(`    endTime: ${line.endTime},`);
     console.log(`    stations: [`);
     line.stations.forEach(station => {
       console.log(`      { name: "${station.name}", timestamp: ${station.timestamp} },`);
@@ -117,7 +112,6 @@ export function shiftLinesFrom(fromIndex: number, shiftSeconds: number): void {
     adjustedLyrics[i] = {
       ...adjustedLyrics[i],
       startTime: adjustedLyrics[i].startTime + shiftSeconds,
-      endTime: adjustedLyrics[i].endTime + shiftSeconds,
       stations: adjustedLyrics[i].stations.map(station => ({
         ...station,
         timestamp: station.timestamp + shiftSeconds,
