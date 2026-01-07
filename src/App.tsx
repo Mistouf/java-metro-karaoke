@@ -1,8 +1,9 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import "./App.css";
 import LyricsDisplay from "./components/LyricsDisplay";
 import MetroMap from "./components/MetroMap";
 import { metroLyrics } from "./data/lyrics";
+import "./utils/adjustTimings"; // Expose les fonctions dans la console
 
 // Types pour les paroles et les stations
 export interface StationMention {
@@ -20,21 +21,48 @@ export interface LyricLine {
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   // Paroles complètes de la chanson
   const lyrics = useMemo(() => metroLyrics, []);
 
-  // Mise à jour du temps de lecture
+  // Synchronisation avec l'audio
   useEffect(() => {
-    let interval: number | undefined;
-    if (isPlaying) {
-      interval = window.setInterval(() => {
-        setCurrentTime((prev) => prev + 0.1);
-      }, 100);
-    }
-    return () => {
-      if (interval) clearInterval(interval);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => {
+      setCurrentTime(audio.currentTime);
     };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setCurrentTime(0);
+      audio.currentTime = 0;
+    };
+
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, []);
+
+  // Gestion Play/Pause
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.play().catch((error) => {
+        console.error("Erreur lors de la lecture:", error);
+        setIsPlaying(false);
+      });
+    } else {
+      audio.pause();
+    }
   }, [isPlaying]);
 
   // Calcul des stations en surbrillance selon le temps (animation de 1.5s)
@@ -61,7 +89,11 @@ function App() {
 
   // Gestion du changement de position via la barre de progression
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentTime(parseFloat(e.target.value));
+    const newTime = parseFloat(e.target.value);
+    setCurrentTime(newTime);
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+    }
   };
 
   const togglePlayPause = () => {
@@ -82,6 +114,9 @@ function App() {
 
   return (
     <div className="app">
+      {/* Audio HTML5 invisible */}
+      <audio ref={audioRef} src="/JAVA-metro.mp3" preload="auto" />
+
       {/* Bouton Play/Pause flottant en haut à gauche */}
       <button
         onClick={togglePlayPause}

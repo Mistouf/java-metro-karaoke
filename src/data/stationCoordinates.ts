@@ -7,6 +7,10 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "x": 4538.9795,
     "y": 982.3197
   },
+  "Buttes-Chaumont": {
+    "x": 5919.99462890625,
+    "y": 1867.6556396484375
+  },
   "Belleville": {
     "x": 5566.7476,
     "y": 2003.7955
@@ -52,16 +56,16 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "y": 4600.82958984375
   },
   "Pont de Levallois - Bécon": {
-    "x": 673.18604,
-    "y": 1447.1716
+    "x": 2365.56298828125,
+    "y": 849.6663818359375
   },
   "Passy": {
     "x": 2555.7981,
     "y": 3599.7317
   },
   "Gallieni": {
-    "x": 674.76685,
-    "y": 1483.6039
+    "x": 1347.5738525390625,
+    "y": 1839.2200927734375
   },
   "Porte d'Orléans": {
     "x": 4278.9536,
@@ -426,9 +430,5 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
   "Plaisance": {
     "x": 3777.590576171875,
     "y": 4373.38623046875
-  },
-  "Buttes-Chaumont": {
-    "x": 2893.7375,
-    "y": 5502.374
   }
 };

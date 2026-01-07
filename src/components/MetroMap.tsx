@@ -10,6 +10,18 @@ interface MetroMapProps {
 // Mode édition : activé avec Ctrl+E (à retirer en production)
 const EDIT_MODE_ENABLED = true;
 
+// Dimensions du viewBox original
+const ORIGINAL_WIDTH = 7529.0861;
+const ORIGINAL_HEIGHT = 5257.141;
+
+// Zone zoomée calculée à partir des stations intra-muros et portes du périphérique
+// Limites: stations entre X:2884 et X:6596, Y:650 et Y:4498
+// Sans marge
+const ZOOM_X = 2885;
+const ZOOM_Y = 650;
+const ZOOM_WIDTH = 3712;
+const ZOOM_HEIGHT = 3849;
+
 function MetroMap({ highlightedStations }: MetroMapProps) {
   const grayImageRef = useRef<HTMLImageElement>(null);
   const colorImageRef = useRef<HTMLImageElement>(null);
@@ -22,6 +34,7 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
   });
 
   const [editMode, setEditMode] = useState(false);
+  const [zoomMode, setZoomMode] = useState(false);
   const [customCoords, setCustomCoords] = useState<
     Record<string, { x: number; y: number }>
   >({});
@@ -101,24 +114,110 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
     (station) => stationMapping[station] || station
   );
 
+  // Calculer le viewBox selon le mode zoom
+  const viewBox = zoomMode
+    ? `${ZOOM_X} ${ZOOM_Y} ${ZOOM_WIDTH} ${ZOOM_HEIGHT}`
+    : `0 0 ${ORIGINAL_WIDTH} ${ORIGINAL_HEIGHT}`;
+
+  // Limites du viewBox en mode zoom
+  const zoomBounds = zoomMode
+    ? {
+        minX: ZOOM_X,
+        maxX: ZOOM_X + ZOOM_WIDTH,
+        minY: ZOOM_Y,
+        maxY: ZOOM_Y + ZOOM_HEIGHT,
+      }
+    : null;
+
+  // Fonction pour contraindre une position aux bords du viewBox
+  const constrainToViewBox = (x: number, y: number) => {
+    if (!zoomBounds) return { x, y };
+
+    let constrainedX = x;
+    let constrainedY = y;
+    let isConstrained = false;
+
+    if (x < zoomBounds.minX) {
+      constrainedX = zoomBounds.minX + 100;
+      isConstrained = true;
+    } else if (x > zoomBounds.maxX) {
+      constrainedX = zoomBounds.maxX - 100;
+      isConstrained = true;
+    }
+
+    if (y < zoomBounds.minY) {
+      constrainedY = zoomBounds.minY + 100;
+      isConstrained = true;
+    } else if (y > zoomBounds.maxY) {
+      constrainedY = zoomBounds.maxY - 100;
+      isConstrained = true;
+    }
+
+    return { x: constrainedX, y: constrainedY, isConstrained };
+  };
+
   // Obtenir les coordonnées des stations (avec les coordonnées custom si elles existent)
   const circles = mappedHighlightedStations
     .map((stationName) => {
       const coords =
         customCoords[stationName] || stationCoordinates[stationName];
       if (!coords) return null;
+
+      // En mode zoom, contraindre les positions au bord si hors du cadre
+      const adjusted = zoomMode
+        ? constrainToViewBox(coords.x, coords.y)
+        : { x: coords.x, y: coords.y, isConstrained: false };
+
       return {
         name: stationName,
-        x: coords.x,
-        y: coords.y,
+        x: adjusted.x,
+        y: adjusted.y,
+        isConstrained: adjusted.isConstrained || false,
       };
     })
     .filter(
-      (coord): coord is { name: string; x: number; y: number } => coord !== null
+      (
+        coord
+      ): coord is {
+        name: string;
+        x: number;
+        y: number;
+        isConstrained: boolean;
+      } => coord !== null
     );
 
   return (
     <div className="metro-map-container" ref={containerRef}>
+      {/* Bouton Zoom/Dézoom */}
+      <button
+        onClick={() => setZoomMode(!zoomMode)}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          background: zoomMode ? "#667eea" : "rgba(255, 255, 255, 0.9)",
+          color: zoomMode ? "white" : "#333",
+          border: zoomMode ? "none" : "2px solid #667eea",
+          padding: "12px 24px",
+          borderRadius: "8px",
+          zIndex: 1000,
+          fontWeight: "bold",
+          fontSize: "16px",
+          cursor: "pointer",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+          transition: "all 0.3s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+        aria-label={zoomMode ? "Dézoom" : "Zoom Paris intramuros"}
+      >
+        {zoomMode ? "🔍 Dézoom" : "🔍 Zoom"}
+      </button>
+
       {/* Indicateur mode édition */}
       {EDIT_MODE_ENABLED && editMode && (
         <div
@@ -144,17 +243,24 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
         </div>
       )}
 
-      {/* Plan en niveaux de gris (fond) */}
-      <img
-        ref={grayImageRef}
-        src="/Carte_Métro_de_Paris.svg"
-        alt="Plan du métro de Paris"
-        className="metro-image metro-image-gray"
-        onLoad={() => setImagesLoaded((prev) => ({ ...prev, gray: true }))}
-      />
+      {/* Plan en niveaux de gris (fond) - en SVG pour supporter le viewBox */}
+      <svg
+        className="metro-svg-overlay"
+        viewBox={viewBox}
+        style={{ zIndex: 1 }}
+      >
+        <image
+          ref={grayImageRef}
+          href="/Carte_Métro_de_Paris.svg"
+          width="7529.0861"
+          height="5257.141"
+          style={{ filter: "grayscale(100%)" }}
+          onLoad={() => setImagesLoaded((prev) => ({ ...prev, gray: true }))}
+        />
+      </svg>
 
       {/* Plan en couleur avec masque circulaire */}
-      <svg className="metro-svg-overlay" viewBox="0 0 7529.0861 5257.141">
+      <svg className="metro-svg-overlay" viewBox={viewBox}>
         <defs>
           <mask id="circle-mask">
             {/* Fond noir (invisible) */}
@@ -188,7 +294,7 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
       <svg
         ref={svgRef}
         className="metro-svg-overlay"
-        viewBox="0 0 7529.0861 5257.141"
+        viewBox={viewBox}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
@@ -220,13 +326,13 @@ function MetroMap({ highlightedStations }: MetroMapProps) {
               className="station-dot"
               style={{ pointerEvents: editMode ? "all" : "none" }}
             />
-            {/* Label pour le mode édition */}
-            {editMode && (
+            {/* Label pour le mode édition OU si station contrainte aux bords */}
+            {(editMode || circle.isConstrained) && (
               <text
                 x={circle.x}
                 y={circle.y - 220}
                 textAnchor="middle"
-                fill="#FF3366"
+                fill={circle.isConstrained ? "#667eea" : "#FF3366"}
                 fontSize="80"
                 fontWeight="bold"
                 style={{
