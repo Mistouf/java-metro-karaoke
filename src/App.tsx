@@ -8,7 +8,7 @@ import "./utils/adjustTimings"; // Expose les fonctions dans la console
 // Types pour les paroles et les stations
 export interface StationMention {
   name: string;
-  timestamp: number; // Moment exact où la station est mentionnée
+  timestamp: number; // Temps relatif (en secondes) par rapport au startTime de la ligne
 }
 
 export interface LyricLine {
@@ -145,6 +145,33 @@ function App() {
     });
   };
 
+  // Décaler toutes les lignes à partir d'un index
+  const shiftFromLine = (fromIndex: number, delta: number) => {
+    setEditedLyrics((prev) => {
+      const newLyrics = [...prev];
+      for (let i = fromIndex; i < newLyrics.length; i++) {
+        newLyrics[i] = {
+          ...newLyrics[i],
+          startTime: Math.max(0, newLyrics[i].startTime + delta),
+        };
+      }
+      console.log(
+        `✅ Décalé ${newLyrics.length - fromIndex} lignes de ${
+          delta > 0 ? "+" : ""
+        }${delta}s à partir de l'index ${fromIndex}`
+      );
+      return newLyrics;
+    });
+  };
+
+  const handleSeek = (delta: number) => {
+    const newTime = Math.max(0, currentTime + delta);
+    setCurrentTime(newTime);
+    if (audioRef.current) {
+      audioRef.current.currentTime = newTime;
+    }
+  };
+
   // Calcul des stations en surbrillance selon le temps (animation de 1.5s)
   // et accumulation des stations révélées (permanent)
   const { highlightedStations, revealedStations } = useMemo(() => {
@@ -154,7 +181,9 @@ function App() {
 
     lyrics.forEach((line) => {
       line.stations.forEach((station) => {
-        const timeSinceStation = currentTime - station.timestamp;
+        // Calculer le timestamp absolu : startTime de la ligne + timestamp relatif
+        const absoluteTimestamp = line.startTime + station.timestamp;
+        const timeSinceStation = currentTime - absoluteTimestamp;
 
         // La station est en animation si elle vient d'être mentionnée (dans les 1.5s)
         if (timeSinceStation >= 0 && timeSinceStation <= ANIMATION_DURATION) {
@@ -232,8 +261,7 @@ function App() {
           style={{
             position: "absolute",
             top: "10px",
-            left: "50%",
-            transform: "translateX(-50%)",
+            left: "120px",
             background: "rgba(102, 126, 234, 0.95)",
             color: "white",
             padding: "12px 24px",
@@ -260,6 +288,8 @@ function App() {
             timingEditMode={timingEditMode}
             onAdjustLineStartTime={adjustLineStartTime}
             onAdjustStationTimestamp={adjustStationTimestamp}
+            onSeek={handleSeek}
+            onShiftFromLine={shiftFromLine}
           />
         </section>
 

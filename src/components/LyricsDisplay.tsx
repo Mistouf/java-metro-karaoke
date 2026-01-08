@@ -11,6 +11,8 @@ interface LyricsDisplayProps {
     stationIndex: number,
     delta: number
   ) => void;
+  onSeek?: (delta: number) => void;
+  onShiftFromLine?: (lineIndex: number, delta: number) => void;
 }
 
 function LyricsDisplay({
@@ -19,6 +21,8 @@ function LyricsDisplay({
   timingEditMode = false,
   onAdjustLineStartTime,
   onAdjustStationTimestamp,
+  onSeek,
+  onShiftFromLine,
 }: LyricsDisplayProps) {
   // Trouver la ligne courante en comparant avec le startTime de la ligne suivante
   const currentLineIndex = lyrics.findIndex((line, index) => {
@@ -105,6 +109,77 @@ function LyricsDisplay({
             <div
               style={{
                 display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "12px",
+                marginBottom: "12px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "28px",
+                  fontWeight: "bold",
+                  color: "#003CA6",
+                }}
+              >
+                ⏱ {currentTime.toFixed(1)}s
+              </div>
+              {onSeek && (
+                <div style={{ display: "flex", gap: "6px" }}>
+                  <button
+                    onClick={() => onSeek(-1)}
+                    style={{
+                      padding: "8px 12px",
+                      background: "#d32f2f",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                    title="Reculer de 1 seconde"
+                  >
+                    ◀◀◀ -1s
+                  </button>
+                  <button
+                    onClick={() => onSeek(-0.5)}
+                    style={{
+                      padding: "8px 12px",
+                      background: "#f57c00",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                    title="Reculer de 0,5 seconde"
+                  >
+                    ◀◀ -0.5s
+                  </button>
+                  <button
+                    onClick={() => onSeek(-0.2)}
+                    style={{
+                      padding: "8px 12px",
+                      background: "#fbc02d",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "4px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                    title="Reculer de 0,2 seconde"
+                  >
+                    ◀ -0.2s
+                  </button>
+                </div>
+              )}
+            </div>
+            <div
+              style={{
+                display: "flex",
                 gap: "12px",
                 alignItems: "center",
                 marginBottom: "8px",
@@ -175,6 +250,126 @@ function LyricsDisplay({
               </button>
             </div>
 
+            {/* Boutons pour décaler toutes les lignes suivantes */}
+            {onShiftFromLine && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  alignItems: "center",
+                  marginBottom: "12px",
+                  paddingTop: "8px",
+                  borderTop: "1px solid rgba(102, 126, 234, 0.3)",
+                }}
+              >
+                <strong
+                  style={{
+                    color: "#c62828",
+                    fontSize: "11px",
+                    minWidth: "120px",
+                  }}
+                >
+                  Décaler lignes suivantes:
+                </strong>
+                <button
+                  onClick={() => onShiftFromLine(currentLineIndex + 1, -1)}
+                  style={{
+                    padding: "5px 10px",
+                    background: "#c62828",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "bold",
+                  }}
+                  title="Décaler toutes les lignes suivantes de -1s"
+                >
+                  ⬅⬅⬅ -1s
+                </button>
+                <button
+                  onClick={() => onShiftFromLine(currentLineIndex + 1, -0.5)}
+                  style={{
+                    padding: "5px 10px",
+                    background: "#d32f2f",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "bold",
+                  }}
+                  title="Décaler toutes les lignes suivantes de -0.5s"
+                >
+                  ⬅⬅ -0.5s
+                </button>
+                <button
+                  onClick={() => onShiftFromLine(currentLineIndex + 1, -0.1)}
+                  style={{
+                    padding: "5px 10px",
+                    background: "#e53935",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "bold",
+                  }}
+                  title="Décaler toutes les lignes suivantes de -0.1s"
+                >
+                  ⬅ -0.1s
+                </button>
+                <button
+                  onClick={() => onShiftFromLine(currentLineIndex + 1, +0.1)}
+                  style={{
+                    padding: "5px 10px",
+                    background: "#43a047",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "bold",
+                  }}
+                  title="Décaler toutes les lignes suivantes de +0.1s"
+                >
+                  +0.1s ➡
+                </button>
+                <button
+                  onClick={() => onShiftFromLine(currentLineIndex + 1, +0.5)}
+                  style={{
+                    padding: "5px 10px",
+                    background: "#388e3c",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "bold",
+                  }}
+                  title="Décaler toutes les lignes suivantes de +0.5s"
+                >
+                  +0.5s ➡➡
+                </button>
+                <button
+                  onClick={() => onShiftFromLine(currentLineIndex + 1, +1)}
+                  style={{
+                    padding: "5px 10px",
+                    background: "#2e7d32",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    fontSize: "11px",
+                    fontWeight: "bold",
+                  }}
+                  title="Décaler toutes les lignes suivantes de +1s"
+                >
+                  +1s ➡➡➡
+                </button>
+              </div>
+            )}
+
             {/* Contrôles pour chaque station */}
             {currentLine.stations.length > 0 && onAdjustStationTimestamp && (
               <div style={{ marginTop: "8px" }}>
@@ -186,7 +381,7 @@ function LyricsDisplay({
                     fontWeight: "600",
                   }}
                 >
-                  Stations :
+                  Stations (temps relatif) :
                 </div>
                 {currentLine.stations.map((station, stationIdx) => (
                   <div
@@ -206,7 +401,8 @@ function LyricsDisplay({
                         fontWeight: "500",
                       }}
                     >
-                      {station.name} : {station.timestamp.toFixed(1)}s
+                      {station.name} : +{station.timestamp.toFixed(1)}s →{" "}
+                      {(currentLine.startTime + station.timestamp).toFixed(1)}s
                     </span>
                     <button
                       onClick={() =>
@@ -247,6 +443,48 @@ function LyricsDisplay({
                       }}
                     >
                       +0.1s
+                    </button>
+                    <button
+                      onClick={() =>
+                        onAdjustStationTimestamp(
+                          currentLineIndex,
+                          stationIdx,
+                          -0.5
+                        )
+                      }
+                      style={{
+                        padding: "4px 8px",
+                        background: "#764ba2",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "3px",
+                        cursor: "pointer",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      -0.5s
+                    </button>
+                    <button
+                      onClick={() =>
+                        onAdjustStationTimestamp(
+                          currentLineIndex,
+                          stationIdx,
+                          +0.5
+                        )
+                      }
+                      style={{
+                        padding: "4px 8px",
+                        background: "#764ba2",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "3px",
+                        cursor: "pointer",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      +0.5s
                     </button>
                   </div>
                 ))}

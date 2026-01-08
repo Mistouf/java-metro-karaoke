@@ -2,6 +2,7 @@ import type { LyricLine } from "../App";
 
 // Paroles complètes de "Métro" avec timestamps approximatifs
 // Durée estimée: ~3:30 (210 secondes)
+// Les timestamps des stations sont RELATIFS au startTime de la ligne
 export const metroLyrics: LyricLine[] = [
   {
     "text": "JAVA (Album Hawaï 2000) - METRO ",
@@ -14,67 +15,67 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Malakoff",
-        "timestamp": 13.5
+        "timestamp": 1
       },
       {
         "name": "Marx, J'Dormoy",
-        "timestamp": 14.5
+        "timestamp": 2.5
       }
     ]
   },
   {
     "text": "Tu rames Buttes alors Chaumont plutôt qu'faire Levallois",
-    "startTime": 15.8,
+    "startTime": 16,
     "stations": [
       {
         "name": "Buttes alors Chaumont",
-        "timestamp": 16.2
+        "timestamp": 2.3
       },
       {
         "name": "Levallois",
-        "timestamp": 17
+        "timestamp": 4.3
       }
     ]
   },
   {
     "text": "L'volontaire, pour l'Ecole Militaire y'a maldonne",
-    "startTime": 18.7,
+    "startTime": 23.5,
     "stations": [
       {
         "name": "volontaire",
-        "timestamp": 19.1
+        "timestamp": 0.5
       },
       {
         "name": "Ecole Militaire",
-        "timestamp": 20
+        "timestamp": 2
       }
     ]
   },
   {
     "text": "Plutôt crever qu'donner sa Sève à Babylone",
-    "startTime": 21.4,
+    "startTime": 26.5,
     "stations": [
       {
         "name": "Sève à Babylone",
-        "timestamp": 22
+        "timestamp": 1.3
       }
     ]
   },
   {
     "text": "Ca s'Passy, ça t'Férino Plassy",
-    "startTime": 24,
+    "startTime": 29.5,
     "stations": [
       {
         "name": "Passy",
-        "timestamp": 25
+        "timestamp": 1
       },
       {
         "name": "ça t'Férino",
-        "timestamp": 26
+        "timestamp": 1.7
       },
       {
         "name": "Plassy",
-        "timestamp": 26
+        "timestamp": 1.7
       }
     ]
   },
@@ -83,20 +84,24 @@ export const metroLyrics: LyricLine[] = [
     "startTime": 32,
     "stations": [
       {
-        "name": "Belle Porte",
-        "timestamp": 33
+        "name": "Pelporte",
+        "timestamp": 1
+      },
+      {
+        "name": "Porte",
+        "timestamp": 1.4
       },
       {
         "name": "Jacques le Bonsergent",
-        "timestamp": 34
+        "timestamp": 2
       },
       {
         "name": "Gare",
-        "timestamp": 35
+        "timestamp": 3
       },
       {
         "name": "Bagnolet",
-        "timestamp": 35.5
+        "timestamp": 3.5
       }
     ]
   },
@@ -106,11 +111,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Porte d'Orléans",
-        "timestamp": 36.5
+        "timestamp": 0.5
       },
       {
         "name": "Ternes",
-        "timestamp": 38.5
+        "timestamp": 2.5
       }
     ]
   },
@@ -120,15 +125,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Monceau",
-        "timestamp": 40.5
+        "timestamp": 1
       },
       {
         "name": "Clichy",
-        "timestamp": 41
+        "timestamp": 1.5
       },
       {
         "name": "Pasteur",
-        "timestamp": 42.5
+        "timestamp": 3
       }
     ]
   },
@@ -138,20 +143,21 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Marcel",
-        "timestamp": 44
+        "timestamp": 1
       },
       {
         "name": "Bérault",
-        "timestamp": 45
+        "timestamp": 2
       },
       {
         "name": "Billancourt",
-        "timestamp": 46
+        "timestamp": 3
       },
-            {
+      {
         "name": "Courcelles",
-        "timestamp": 46
-      }
+        "timestamp": 4
+      },
+      
     ]
   },
   {
@@ -160,15 +166,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Iéna",
-        "timestamp": 47.5
+        "timestamp": 1
       },
       {
         "name": "Vavin",
-        "timestamp": 48.8
+        "timestamp": 2.3
       },
       {
         "name": "Bienvenüe",
-        "timestamp": 49.5
+        "timestamp": 3
       }
     ]
   },
@@ -178,15 +184,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Montparnasse",
-        "timestamp": 50.5
+        "timestamp": 0.5
       },
-            {
+       {
         "name": "Bourse",
-        "timestamp": 51
-      },
+        "timestamp": 1
+       },
       {
         "name": "Rue de la Pompe",
-        "timestamp": 52
+        "timestamp": 2
       }
     ]
   },
@@ -196,11 +202,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Piquet dans ta Motte",
-        "timestamp": 53.8
+        "timestamp": 0.8
       },
       {
         "name": "Montgallet",
-        "timestamp": 55.2
+        "timestamp": 2.2
       }
     ]
   },
@@ -210,11 +216,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Châtelet",
-        "timestamp": 56.8
+        "timestamp": 0.8
       },
       {
         "name": "Poissonnière",
-        "timestamp": 58
+        "timestamp": 2
       }
     ]
   },
@@ -224,15 +230,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Charenton",
-        "timestamp": 59.2
+        "timestamp": 0.7
       },
       {
         "name": "Luxembourg",
-        "timestamp": 60.2
+        "timestamp": 1.7
       },
       {
         "name": "Fille du calvaire",
-        "timestamp": 61
+        "timestamp": 2.5
       }
     ]
   },
@@ -242,11 +248,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Exelmans",
-        "timestamp": 62.8
+        "timestamp": 0.8
       },
       {
         "name": "Denfert",
-        "timestamp": 64
+        "timestamp": 2
       }
     ]
   },
@@ -256,19 +262,19 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Chemin Vert",
-        "timestamp": 65.2
+        "timestamp": 0.7
       },
       {
         "name": "Trocadéro",
-        "timestamp": 66
+        "timestamp": 1.5
       },
       {
         "name": "Blanche",
-        "timestamp": 66.8
+        "timestamp": 2.3
       },
       {
         "name": "Bel-Air",
-        "timestamp": 67.5
+        "timestamp": 3
       }
     ]
   },
@@ -278,15 +284,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Commerce",
-        "timestamp": 68.8
+        "timestamp": 0.8
       },
       {
         "name": "Clignancourt",
-        "timestamp": 69.5
+        "timestamp": 1.5
       },
       {
         "name": "Cité",
-        "timestamp": 70.5
+        "timestamp": 2.5
       }
     ]
   },
@@ -296,15 +302,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Wagram",
-        "timestamp": 71.5
+        "timestamp": 0.5
       },
       {
         "name": "Parmentier",
-        "timestamp": 72.5
+        "timestamp": 1.5
       },
       {
         "name": "Havre",
-        "timestamp": 73.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -314,11 +320,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Caumartin",
-        "timestamp": 74.8
+        "timestamp": 0.3
       },
       {
         "name": "Champs-Elysées",
-        "timestamp": 76.5
+        "timestamp": 2
       }
     ]
   },
@@ -328,11 +334,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Comatec",
-        "timestamp": 78
+        "timestamp": 0.5
       },
       {
         "name": "La Défonce",
-        "timestamp": 79.5
+        "timestamp": 2
       }
     ]
   },
@@ -342,7 +348,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 82
+        "timestamp": 1.5
       }
     ]
   },
@@ -357,11 +363,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Dupleix",
-        "timestamp": 88.5
+        "timestamp": 1.5
       },
       {
         "name": "Quai de la Rapée",
-        "timestamp": 89.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -371,11 +377,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Odéon",
-        "timestamp": 91
+        "timestamp": 0.5
       },
       {
         "name": "Saint-Lazare",
-        "timestamp": 93
+        "timestamp": 2.5
       }
     ]
   },
@@ -385,7 +391,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 95
+        "timestamp": 1
       }
     ]
   },
@@ -400,11 +406,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Kléber",
-        "timestamp": 100
+        "timestamp": 1
       },
       {
         "name": "Tuileries",
-        "timestamp": 101.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -414,11 +420,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Raspail",
-        "timestamp": 103.5
+        "timestamp": 1
       },
       {
         "name": "Gabriel Péri",
-        "timestamp": 105
+        "timestamp": 2.5
       }
     ]
   },
@@ -428,11 +434,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Foch",
-        "timestamp": 106.8
+        "timestamp": 0.8
       },
       {
-        "name": "Pas de Saint-Cloud",
-        "timestamp": 108
+        "name": "Pas Saint-Cloud",
+        "timestamp": 2
       }
     ]
   },
@@ -442,15 +448,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Neuilly",
-        "timestamp": 109
+        "timestamp": 0.5
       },
       {
         "name": "Porte le Maillot",
-        "timestamp": 110.5
+        "timestamp": 2
       },
       {
         "name": "Auteuil",
-        "timestamp": 111.5
+        "timestamp": 3
       }
     ]
   },
@@ -460,11 +466,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Gobelins",
-        "timestamp": 112.8
+        "timestamp": 0.8
       },
       {
         "name": "Censier d'la Dauben(Bâ)ton",
-        "timestamp": 113.8
+        "timestamp": 1.8
       }
     ]
   },
@@ -474,15 +480,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Picpus",
-        "timestamp": 115.8
+        "timestamp": 0.8
       },
       {
         "name": "Barbès",
-        "timestamp": 116.8
+        "timestamp": 1.8
       },
       {
         "name": "Louis Blanc",
-        "timestamp": 117.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -492,15 +498,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Choisy-le-roi",
-        "timestamp": 119
-      },  
+        "timestamp": 0.5
+      },
       {
         "name": "Bourg-la-Reine",
-        "timestamp": 120
+        "timestamp": 1.5
       },
       {
         "name": "Port-Royal",
-        "timestamp": 121
+        "timestamp": 2.5
       }
     ]
   },
@@ -510,15 +516,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Couronnes",
-        "timestamp": 122.5
+        "timestamp": 1
       },
       {
         "name": "Varenne",
-        "timestamp": 124
+        "timestamp": 2.5
       },
       {
         "name": "Charonne",
-        "timestamp": 125
+        "timestamp": 3.5
       }
     ]
   },
@@ -528,7 +534,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Voltaire",
-        "timestamp": 126
+        "timestamp": 0.5
       }
     ]
   },
@@ -538,11 +544,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bastille",
-        "timestamp": 128.5
+        "timestamp": 1
       },
       {
         "name": "Argentine",
-        "timestamp": 130.2
+        "timestamp": 2.7
       }
     ]
   },
@@ -552,23 +558,23 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Pantin",
-        "timestamp": 131.2
+        "timestamp": 0.2
       },
       {
         "name": "Dugommier",
-        "timestamp": 132.2
+        "timestamp": 1.2
       },
       {
-        "name": "emBrochant",
-        "timestamp": 133
+        "name": "Brochant",
+        "timestamp": 2
       },
       {
         "name": "La Fourche",
-        "timestamp": 133.8
+        "timestamp": 2.8
       },
       {
         "name": "Hoche",
-        "timestamp": 134.5
+        "timestamp": 3.5
       }
     ]
   },
@@ -578,23 +584,23 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Saint-Sulpice",
-        "timestamp": 135.8
+        "timestamp": 0.8
       },
       {
         "name": "Crimée",
-        "timestamp": 136.8
+        "timestamp": 1.8
       },
       {
         "name": "Sentier",
-        "timestamp": 137.5
+        "timestamp": 2.5
       },
       {
         "name": "Vaugirard",
-        "timestamp": 138.5
+        "timestamp": 3.5
       },
       {
         "name": "Pyrénées",
-        "timestamp": 139.5
+        "timestamp": 4.5
       }
     ]
   },
@@ -602,13 +608,13 @@ export const metroLyrics: LyricLine[] = [
     "text": "T'es condamné à errer dans l'Marais et faire la drag-Rennes",
     "startTime": 140,
     "stations": [
-      {
+         {
         "name": "Marais",
         "timestamp": 141.8
       },
       {
         "name": "Rennes",
-        "timestamp": 142.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -618,7 +624,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Réaumur-Sébastopol",
-        "timestamp": 145
+        "timestamp": 1.5
       }
     ]
   },
@@ -628,11 +634,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Anvers",
-        "timestamp": 147
+        "timestamp": 1
       },
       {
         "name": "Saint-Paul",
-        "timestamp": 149
+        "timestamp": 3
       }
     ]
   },
@@ -642,11 +648,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Abbesses",
-        "timestamp": 150
+        "timestamp": 0.5
       },
       {
         "name": "Gambetta",
-        "timestamp": 151
+        "timestamp": 1.5
       }
     ]
   },
@@ -656,15 +662,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Jourdain",
-        "timestamp": 152.2
+        "timestamp": 0.7
       },
       {
         "name": "Ménilmontant",
-        "timestamp": 153
+        "timestamp": 1.5
       },
       {
         "name": "Duroc",
-        "timestamp": 154
+        "timestamp": 2.5
       }
     ]
   },
@@ -674,15 +680,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Haussmann",
-        "timestamp": 155.5
+        "timestamp": 1
       },
       {
         "name": "Daumesnil",
-        "timestamp": 156.2
+        "timestamp": 1.7
       },
       {
         "name": "Clichy",
-        "timestamp": 157.2
+        "timestamp": 2.7
       }
     ]
   },
@@ -692,15 +698,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Invalides",
-        "timestamp": 158.5
+        "timestamp": 0.5
       },
       {
         "name": "Balard",
-        "timestamp": 159.8
+        "timestamp": 1.8
       },
       {
         "name": "Mai(s j')rie d'Issy",
-        "timestamp": 161
+        "timestamp": 3
       }
     ]
   },
@@ -710,11 +716,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Masséna",
-        "timestamp": 162.5
+        "timestamp": 1
       },
       {
         "name": "Edgar le Quinet",
-        "timestamp": 163.5
+        "timestamp": 2
       }
     ]
   },
@@ -724,15 +730,15 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Opéra",
-        "timestamp": 164.8
+        "timestamp": 0.8
       },
       {
         "name": "Saint-Maur",
-        "timestamp": 165.8
+        "timestamp": 1.8
       },
       {
         "name": "Porte des Lilas",
-        "timestamp": 166.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -742,11 +748,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Corvisart",
-        "timestamp": 168
+        "timestamp": 0.5
       },
       {
         "name": "Père Lachaise",
-        "timestamp": 169.2
+        "timestamp": 1.7
       }
     ]
   },
@@ -756,11 +762,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Sablons",
-        "timestamp": 170.5
+        "timestamp": 0.5
       },
       {
         "name": "Champerret",
-        "timestamp": 171.5
+        "timestamp": 1.5
       }
     ]
   },
@@ -770,7 +776,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 175
+        "timestamp": 1.5
       }
     ]
   },
@@ -785,11 +791,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Dupleix",
-        "timestamp": 181.5
+        "timestamp": 1.5
       },
       {
         "name": "Quai de la Rapée",
-        "timestamp": 182.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -799,11 +805,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Odéon",
-        "timestamp": 184
+        "timestamp": 0.5
       },
       {
         "name": "Saint-Lazare",
-        "timestamp": 186
+        "timestamp": 2.5
       }
     ]
   },
@@ -813,7 +819,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 188.5
+        "timestamp": 1.5
       }
     ]
   },
@@ -828,11 +834,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Dupleix",
-        "timestamp": 195
+        "timestamp": 1.5
       },
       {
         "name": "Quai de la Rapée",
-        "timestamp": 196.3
+        "timestamp": 2.8
       }
     ]
   },
@@ -842,11 +848,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Odéon",
-        "timestamp": 197.5
+        "timestamp": 0.5
       },
       {
         "name": "Saint-Lazare",
-        "timestamp": 199.5
+        "timestamp": 2.5
       }
     ]
   },
@@ -856,7 +862,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 202
+        "timestamp": 1.5
       }
     ]
   },
@@ -871,11 +877,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Dupleix",
-        "timestamp": 208.5
+        "timestamp": 1.5
       },
       {
         "name": "Quai de la Rapée",
-        "timestamp": 209.8
+        "timestamp": 2.8
       }
     ]
   },
@@ -885,11 +891,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Odéon",
-        "timestamp": 211
+        "timestamp": 0.5
       },
       {
         "name": "Saint-Lazare",
-        "timestamp": 213
+        "timestamp": 2.5
       }
     ]
   },
@@ -899,7 +905,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 215.5
+        "timestamp": 1.5
       }
     ]
   },
@@ -914,11 +920,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Dupleix",
-        "timestamp": 222
+        "timestamp": 1.5
       },
       {
         "name": "Quai de la Rapée",
-        "timestamp": 223.3
+        "timestamp": 2.8
       }
     ]
   },
@@ -928,11 +934,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Odéon",
-        "timestamp": 224.5
+        "timestamp": 0.5
       },
       {
         "name": "Saint-Lazare",
-        "timestamp": 226.5
+        "timestamp": 2.5
       }
     ]
   },
@@ -942,7 +948,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 228.5
+        "timestamp": 1
       }
     ]
   },
@@ -952,9 +958,8 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Bercy",
-        "timestamp": 231
+        "timestamp": 1
       }
     ]
   }
-]
-;
+];
