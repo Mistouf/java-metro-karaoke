@@ -290,6 +290,8 @@ function App() {
             onAdjustStationTimestamp={adjustStationTimestamp}
             onSeek={handleSeek}
             onShiftFromLine={shiftFromLine}
+            isPlaying={isPlaying}
+            onTogglePlayPause={togglePlayPause}
           />
         </section>
 

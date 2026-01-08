@@ -73,7 +73,7 @@ export const metroLyrics: LyricLine[] = [
         "name": "ça t'Férino",
         "timestamp": 1.7
       },
-      {
+       {
         "name": "Plassy",
         "timestamp": 1.7
       }
@@ -153,11 +153,10 @@ export const metroLyrics: LyricLine[] = [
         "name": "Billancourt",
         "timestamp": 3
       },
-      {
+           {
         "name": "Courcelles",
         "timestamp": 4
-      },
-      
+      }
     ]
   },
   {
@@ -186,7 +185,7 @@ export const metroLyrics: LyricLine[] = [
         "name": "Montparnasse",
         "timestamp": 0.5
       },
-       {
+             {
         "name": "Bourse",
         "timestamp": 1
        },
@@ -608,7 +607,7 @@ export const metroLyrics: LyricLine[] = [
     "text": "T'es condamné à errer dans l'Marais et faire la drag-Rennes",
     "startTime": 140,
     "stations": [
-         {
+               {
         "name": "Marais",
         "timestamp": 141.8
       },

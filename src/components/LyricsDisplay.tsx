@@ -13,6 +13,8 @@ interface LyricsDisplayProps {
   ) => void;
   onSeek?: (delta: number) => void;
   onShiftFromLine?: (lineIndex: number, delta: number) => void;
+  isPlaying?: boolean;
+  onTogglePlayPause?: () => void;
 }
 
 function LyricsDisplay({
@@ -23,6 +25,8 @@ function LyricsDisplay({
   onAdjustStationTimestamp,
   onSeek,
   onShiftFromLine,
+  isPlaying = false,
+  onTogglePlayPause,
 }: LyricsDisplayProps) {
   // Trouver la ligne courante en comparant avec le startTime de la ligne suivante
   const currentLineIndex = lyrics.findIndex((line, index) => {
@@ -115,6 +119,25 @@ function LyricsDisplay({
                 marginBottom: "12px",
               }}
             >
+              {onTogglePlayPause && (
+                <button
+                  onClick={onTogglePlayPause}
+                  style={{
+                    padding: "10px 16px",
+                    background: isPlaying ? "#764ba2" : "#667eea",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                  }}
+                  title={isPlaying ? "Pause" : "Play"}
+                >
+                  {isPlaying ? "⏸" : "▶"}
+                </button>
+              )}
               <div
                 style={{
                   fontSize: "28px",
