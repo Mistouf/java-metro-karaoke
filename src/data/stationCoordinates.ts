@@ -11,6 +11,10 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "x": 5919.99462890625,
     "y": 1867.6556396484375
   },
+  "Pelleport": {
+    "x": 6313.06982421875,
+    "y": 2257.0810546875
+  },
   "Belleville": {
     "x": 5566.7476,
     "y": 2003.7955
@@ -33,7 +37,7 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
   },
   "Place de Clichy": {
     "x": 3556.3462,
-    "y": -1402.0791
+    "y": 1550
   },
   "Vavin": {
     "x": 3842.708,
@@ -155,10 +159,6 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "x": 3112.5413,
     "y": 3957.7188
   },
-    "Mairie d'Issy": {
-    "x": 3112.5413,
-    "y": 3957.7188
-  },
   "Wagram": {
     "x": 3019.3838,
     "y": 1528.0261
@@ -172,32 +172,32 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "y": -1106.8208
   },
   "Champs-Élysées - Clemenceau": {
-    "x": 441.7453,
-    "y": 4402.8428
+    "x": 1573.30322265625,
+    "y": 4251.77294921875
   },
   "La Défense": {
-    "x": 673.18604,
-    "y": 1447.1716
+    "x": 1805.4564208984375,
+    "y": 1588.644287109375
   },
   "Bercy": {
-    "x": 807.9342,
-    "y": 714.49774
+    "x": 5579.60400390625,
+    "y": 3797.416259765625
   },
   "Dupleix": {
     "x": 2760.2788,
     "y": 3820.9075
   },
   "Quai de la Rapée": {
-    "x": 4826.0903,
-    "y": 3461.2231
+    "x": 5158.412109375,
+    "y": 3449.186279296875
   },
   "Odéon": {
-    "x": 5315.4038,
-    "y": -303.55035
+    "x": 5062.234375,
+    "y": 1459.3017578125
   },
   "Saint-Lazare": {
-    "x": 4100,
-    "y": 1900
+    "x": 3549.921875,
+    "y": 2023.1024169921875
   },
   "Kléber": {
     "x": 2612.7344,

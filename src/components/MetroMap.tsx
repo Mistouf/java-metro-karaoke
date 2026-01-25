@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./MetroMap.css";
 import { stationMapping } from "../data/metroData";
 import { stationCoordinates } from "../data/stationCoordinates";
@@ -17,22 +17,17 @@ const ORIGINAL_HEIGHT = 5257.141;
 
 // Zone zoomée calculée à partir des stations intra-muros et portes du périphérique
 // Limites: stations entre X:2884 et X:6596, Y:650 et Y:4498
-// Sans marge
-const ZOOM_X = 2885;
-const ZOOM_Y = 650;
-const ZOOM_WIDTH = 3712;
-const ZOOM_HEIGHT = 3849;
+// Crop à gauche pour ignorer tout avant X:1260
+const ZOOM_X = 1260;
+const ZOOM_Y = 800;
+const ZOOM_WIDTH = 5336; // 6596 - 1260
+const ZOOM_HEIGHT = 3800;
 
 function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
-  const grayImageRef = useRef<HTMLImageElement>(null);
-  const colorImageRef = useRef<HTMLImageElement>(null);
+  const grayImageRef = useRef<SVGImageElement>(null);
+  const colorImageRef = useRef<SVGImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-
-  const [imagesLoaded, setImagesLoaded] = useState({
-    gray: false,
-    color: false,
-  });
 
   const [editMode, setEditMode] = useState(false);
   const [zoomMode, setZoomMode] = useState(false);
@@ -40,6 +35,80 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
     Record<string, { x: number; y: number }>
   >({});
   const [draggingStation, setDraggingStation] = useState<string | null>(null);
+
+  // Gérer le drag avec des événements globaux pour éviter de perdre le drag
+  useEffect(() => {
+    if (!draggingStation || !svgRef.current) return;
+
+    const svg = svgRef.current;
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      e.preventDefault();
+
+      // Convertir les coordonnées de la souris en coordonnées SVG
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const svgP = pt.matrixTransform(svg.getScreenCTM()?.inverse());
+
+      setCustomCoords((prev) => {
+        const newCoords = {
+          ...prev,
+          [draggingStation]: { x: svgP.x, y: svgP.y },
+        };
+        return newCoords;
+      });
+    };
+
+    const handleGlobalMouseUp = () => {
+      // Utiliser setCustomCoords pour accéder à la dernière version
+      setCustomCoords((prev) => {
+        if (prev[draggingStation]) {
+          const coords = prev[draggingStation];
+          const coordsText = `  "${draggingStation}": {\n    "x": ${coords.x},\n    "y": ${coords.y}\n  }`;
+
+          console.log(
+            `Station "${draggingStation}": { x: ${coords.x.toFixed(
+              4,
+            )}, y: ${coords.y.toFixed(4)} }`,
+          );
+
+          navigator.clipboard
+            .writeText(coordsText)
+            .then(() => {
+              console.log(`📋 Coordonnées copiées dans le presse-papier`);
+            })
+            .catch((err) => {
+              console.error("Erreur lors de la copie:", err);
+            });
+        }
+        return prev;
+      });
+      setDraggingStation(null);
+    };
+
+    // Ajouter les listeners au niveau window pour capturer les mouvements partout
+    window.addEventListener("mousemove", handleGlobalMouseMove);
+    window.addEventListener("mouseup", handleGlobalMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", handleGlobalMouseMove);
+      window.removeEventListener("mouseup", handleGlobalMouseUp);
+    };
+  }, [draggingStation]);
+
+  // Exporter les coordonnées modifiées
+  const exportCoordinates = useCallback(() => {
+    const updatedCoords = { ...stationCoordinates, ...customCoords };
+    const output = JSON.stringify(updatedCoords, null, 2);
+    console.log("=== COORDONNÉES MISES À JOUR ===");
+    console.log(output);
+
+    // Copier dans le presse-papier
+    navigator.clipboard.writeText(output).then(() => {
+      alert("Coordonnées copiées dans le presse-papier !");
+    });
+  }, [customCoords]);
 
   // Activer/désactiver le mode édition avec Ctrl+E
   useEffect(() => {
@@ -61,20 +130,7 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [editMode, customCoords]);
-
-  // Exporter les coordonnées modifiées
-  const exportCoordinates = () => {
-    const updatedCoords = { ...stationCoordinates, ...customCoords };
-    const output = JSON.stringify(updatedCoords, null, 2);
-    console.log("=== COORDONNÉES MISES À JOUR ===");
-    console.log(output);
-
-    // Copier dans le presse-papier
-    navigator.clipboard.writeText(output).then(() => {
-      alert("Coordonnées copiées dans le presse-papier !");
-    });
-  };
+  }, [editMode, exportCoordinates]);
 
   // Gérer le drag des cercles
   const handleMouseDown = (stationName: string) => {
@@ -82,40 +138,12 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
     setDraggingStation(stationName);
   };
 
-  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (!editMode || !draggingStation || !svgRef.current) return;
-
-    // Convertir les coordonnées de la souris en coordonnées SVG
-    const svg = svgRef.current;
-    const pt = svg.createSVGPoint();
-    pt.x = e.clientX;
-    pt.y = e.clientY;
-    const svgP = pt.matrixTransform(svg.getScreenCTM()?.inverse());
-
-    setCustomCoords((prev) => ({
-      ...prev,
-      [draggingStation]: { x: svgP.x, y: svgP.y },
-    }));
-  };
-
-  const handleMouseUp = () => {
-    if (draggingStation && customCoords[draggingStation]) {
-      const coords = customCoords[draggingStation];
-      console.log(
-        `Station "${draggingStation}": { x: ${coords.x.toFixed(
-          4
-        )}, y: ${coords.y.toFixed(4)} }`
-      );
-    }
-    setDraggingStation(null);
-  };
-
   // Mapper les noms de la chanson vers les vrais noms de stations
   const mappedHighlightedStations = highlightedStations.map((station) => {
     const mappedName = stationMapping[station];
     if (!mappedName) {
       console.warn(
-        `⚠️ Station "${station}" non trouvée dans le mapping - utilisation du nom brut`
+        `⚠️ Station "${station}" non trouvée dans le mapping - utilisation du nom brut`,
       );
     }
     return mappedName || station;
@@ -125,7 +153,7 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
     const mappedName = stationMapping[station];
     if (!mappedName) {
       console.warn(
-        `⚠️ Station "${station}" non trouvée dans le mapping - utilisation du nom brut`
+        `⚠️ Station "${station}" non trouvée dans le mapping - utilisation du nom brut`,
       );
     }
     return mappedName || station;
@@ -180,23 +208,24 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
         customCoords[stationName] || stationCoordinates[stationName];
       if (!coords) {
         console.error(
-          `❌ Impossible d'animer la station "${stationName}" : coordonnées introuvables dans stationCoordinates`
+          `❌ Impossible d'animer la station "${stationName}" : coordonnées introuvables dans stationCoordinates`,
         );
         return null;
       }
 
-      // En mode zoom, contraindre les positions au bord si hors du cadre
-      const adjusted = zoomMode
+      // En mode zoom ET si on n'est PAS en train de déplacer cette station, contraindre les positions au bord si hors du cadre
+      const shouldConstrain = zoomMode && draggingStation !== stationName;
+      const adjusted = shouldConstrain
         ? constrainToViewBox(coords.x, coords.y)
         : { x: coords.x, y: coords.y, isConstrained: false };
 
       if (adjusted.isConstrained) {
         console.info(
           `ℹ️ Station "${stationName}" hors du cadre zoom - position contrainte aux bords (${coords.x.toFixed(
-            0
+            0,
           )}, ${coords.y.toFixed(0)}) → (${adjusted.x.toFixed(
-            0
-          )}, ${adjusted.y.toFixed(0)})`
+            0,
+          )}, ${adjusted.y.toFixed(0)})`,
         );
       }
 
@@ -209,13 +238,13 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
     })
     .filter(
       (
-        coord
+        coord,
       ): coord is {
         name: string;
         x: number;
         y: number;
         isConstrained: boolean;
-      } => coord !== null
+      } => coord !== null,
     );
 
   // Toutes les stations révélées (pour le masque de la carte en couleur)
@@ -225,7 +254,7 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
         customCoords[stationName] || stationCoordinates[stationName];
       if (!coords) {
         console.error(
-          `❌ Impossible de révéler la station "${stationName}" : coordonnées introuvables dans stationCoordinates`
+          `❌ Impossible de révéler la station "${stationName}" : coordonnées introuvables dans stationCoordinates`,
         );
         return null;
       }
@@ -237,7 +266,8 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
       };
     })
     .filter(
-      (coord): coord is { name: string; x: number; y: number } => coord !== null
+      (coord): coord is { name: string; x: number; y: number } =>
+        coord !== null,
     );
 
   return (
@@ -309,7 +339,6 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
           width="7529.0861"
           height="5257.141"
           style={{ filter: "grayscale(100%)" }}
-          onLoad={() => setImagesLoaded((prev) => ({ ...prev, gray: true }))}
         />
       </svg>
 
@@ -340,7 +369,6 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
           width="7529.0861"
           height="5257.141"
           mask="url(#circle-mask)"
-          onLoad={() => setImagesLoaded((prev) => ({ ...prev, color: true }))}
         />
       </svg>
 
@@ -349,10 +377,14 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
         ref={svgRef}
         className="metro-svg-overlay"
         viewBox={viewBox}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        style={{ cursor: editMode ? "crosshair" : "default" }}
+        style={{
+          cursor:
+            editMode && draggingStation
+              ? "grabbing"
+              : editMode
+                ? "crosshair"
+                : "default",
+        }}
       >
         {circles.map((circle, index) => (
           <g
@@ -382,20 +414,39 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
             />
             {/* Label pour le mode édition OU si station contrainte aux bords */}
             {(editMode || circle.isConstrained) && (
-              <text
-                x={circle.x}
-                y={circle.y - 220}
-                textAnchor="middle"
-                fill={circle.isConstrained ? "#667eea" : "#FF3366"}
-                fontSize="80"
-                fontWeight="bold"
-                style={{
-                  pointerEvents: "none",
-                  textShadow: "0 0 3px white, 0 0 3px white, 0 0 3px white",
-                }}
-              >
-                {circle.name}
-              </text>
+              <>
+                <text
+                  x={circle.x}
+                  y={circle.y - 220}
+                  textAnchor="middle"
+                  fill={circle.isConstrained ? "#667eea" : "#FF3366"}
+                  fontSize="80"
+                  fontWeight="bold"
+                  style={{
+                    pointerEvents: "none",
+                    textShadow: "0 0 3px white, 0 0 3px white, 0 0 3px white",
+                  }}
+                >
+                  {circle.name}
+                </text>
+                {/* Afficher les coordonnées en mode édition */}
+                {editMode && (
+                  <text
+                    x={circle.x}
+                    y={circle.y - 120}
+                    textAnchor="middle"
+                    fill="#003CA6"
+                    fontSize="60"
+                    fontWeight="normal"
+                    style={{
+                      pointerEvents: "none",
+                      textShadow: "0 0 2px white, 0 0 2px white",
+                    }}
+                  >
+                    ({circle.x.toFixed(1)}, {circle.y.toFixed(1)})
+                  </text>
+                )}
+              </>
             )}
           </g>
         ))}

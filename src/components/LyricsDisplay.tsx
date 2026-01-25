@@ -13,6 +13,7 @@ interface LyricsDisplayProps {
   ) => void;
   onSeek?: (delta: number) => void;
   onShiftFromLine?: (lineIndex: number, delta: number) => void;
+  onShiftNextToCurrentTime?: (currentLineIndex: number) => void;
   isPlaying?: boolean;
   onTogglePlayPause?: () => void;
 }
@@ -25,6 +26,7 @@ function LyricsDisplay({
   onAdjustStationTimestamp,
   onSeek,
   onShiftFromLine,
+  onShiftNextToCurrentTime,
   isPlaying = false,
   onTogglePlayPause,
 }: LyricsDisplayProps) {
@@ -389,6 +391,50 @@ function LyricsDisplay({
                   title="Décaler toutes les lignes suivantes de +1s"
                 >
                   +1s ➡➡➡
+                </button>
+              </div>
+            )}
+
+            {/* Bouton rapide : aligner prochaines lignes au temps courant */}
+            {onShiftNextToCurrentTime && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "12px",
+                  paddingTop: "8px",
+                  borderTop: "1px solid rgba(102, 126, 234, 0.3)",
+                }}
+              >
+                <button
+                  onClick={() => onShiftNextToCurrentTime(currentLineIndex)}
+                  style={{
+                    padding: "10px 20px",
+                    background:
+                      "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "13px",
+                    fontWeight: "bold",
+                    boxShadow: "0 3px 10px rgba(102, 126, 234, 0.4)",
+                    transition: "all 0.2s",
+                  }}
+                  title="Décaler les lignes suivantes pour que la prochaine commence au temps actuel"
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow =
+                      "0 5px 15px rgba(102, 126, 234, 0.6)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 3px 10px rgba(102, 126, 234, 0.4)";
+                  }}
+                >
+                  🎯 ALIGNER PROCHAINE LIGNE AU TEMPS ACTUEL
                 </button>
               </div>
             )}

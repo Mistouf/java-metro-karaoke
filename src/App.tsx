@@ -71,6 +71,20 @@ function App() {
     }
   }, [isPlaying]);
 
+  // Fonction pour exporter les timings modifiés
+  const exportTimings = () => {
+    const output = JSON.stringify(editedLyrics, null, 2);
+    console.log("=== TIMINGS MODIFIÉS ===");
+    console.log(`export const metroLyrics: LyricLine[] = ${output};`);
+
+    // Copier dans le presse-papier
+    navigator.clipboard
+      .writeText(`export const metroLyrics: LyricLine[] = ${output};`)
+      .then(() => {
+        alert("Timings copiés dans le presse-papier !");
+      });
+  };
+
   // Gestion de la touche Espace pour Play/Pause et Ctrl+R pour le mode édition
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -97,21 +111,7 @@ function App() {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [timingEditMode]);
-
-  // Fonction pour exporter les timings modifiés
-  const exportTimings = () => {
-    const output = JSON.stringify(editedLyrics, null, 2);
-    console.log("=== TIMINGS MODIFIÉS ===");
-    console.log(`export const metroLyrics: LyricLine[] = ${output};`);
-
-    // Copier dans le presse-papier
-    navigator.clipboard
-      .writeText(`export const metroLyrics: LyricLine[] = ${output};`)
-      .then(() => {
-        alert("Timings copiés dans le presse-papier !");
-      });
-  };
+  }, [timingEditMode, editedLyrics]);
 
   // Fonctions pour ajuster les timings
   const adjustLineStartTime = (lineIndex: number, delta: number) => {
@@ -119,7 +119,10 @@ function App() {
       const newLyrics = [...prev];
       newLyrics[lineIndex] = {
         ...newLyrics[lineIndex],
-        startTime: Math.max(0, newLyrics[lineIndex].startTime + delta),
+        startTime:
+          Math.round(
+            Math.max(0, newLyrics[lineIndex].startTime + delta) * 100
+          ) / 100,
       };
       return newLyrics;
     });
@@ -135,7 +138,10 @@ function App() {
       const newStations = [...newLyrics[lineIndex].stations];
       newStations[stationIndex] = {
         ...newStations[stationIndex],
-        timestamp: Math.max(0, newStations[stationIndex].timestamp + delta),
+        timestamp:
+          Math.round(
+            Math.max(0, newStations[stationIndex].timestamp + delta) * 100
+          ) / 100,
       };
       newLyrics[lineIndex] = {
         ...newLyrics[lineIndex],
@@ -152,7 +158,8 @@ function App() {
       for (let i = fromIndex; i < newLyrics.length; i++) {
         newLyrics[i] = {
           ...newLyrics[i],
-          startTime: Math.max(0, newLyrics[i].startTime + delta),
+          startTime:
+            Math.round(Math.max(0, newLyrics[i].startTime + delta) * 100) / 100,
         };
       }
       console.log(
@@ -162,6 +169,26 @@ function App() {
       );
       return newLyrics;
     });
+  };
+
+  // Décaler les lignes suivantes pour que la prochaine commence au temps courant
+  const shiftNextToCurrentTime = (currentLineIndex: number) => {
+    const nextLineIndex = currentLineIndex + 1;
+    if (nextLineIndex >= lyrics.length) {
+      console.warn("⚠️ Pas de ligne suivante à décaler");
+      return;
+    }
+
+    const nextLine = lyrics[nextLineIndex];
+    const delta = Math.round((currentTime - nextLine.startTime) * 100) / 100;
+
+    console.log(
+      `🎯 Décalage pour aligner la ligne [${nextLineIndex}] au temps actuel ${currentTime.toFixed(
+        1
+      )}s (delta: ${delta > 0 ? "+" : ""}${delta.toFixed(2)}s)`
+    );
+
+    shiftFromLine(nextLineIndex, delta);
   };
 
   const handleSeek = (delta: number) => {
@@ -290,6 +317,7 @@ function App() {
             onAdjustStationTimestamp={adjustStationTimestamp}
             onSeek={handleSeek}
             onShiftFromLine={shiftFromLine}
+            onShiftNextToCurrentTime={shiftNextToCurrentTime}
             isPlaying={isPlaying}
             onTogglePlayPause={togglePlayPause}
           />
