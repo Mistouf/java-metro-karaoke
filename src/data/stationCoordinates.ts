@@ -68,6 +68,10 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "x": 1347.5738525390625,
     "y": 1839.2200927734375
   },
+  "Bagnolet": {
+    "x": 6570.388671875,
+    "y": 2345.6826171875
+  },
   "Porte d'Orléans": {
     "x": 4278.9536,
     "y": 4498.8281
@@ -77,8 +81,8 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "y": 2412.6045
   },
   "Pasteur": {
-    "x": 3420.8313,
-    "y": 4076.8728
+    "x": 3433.9033203125,
+    "y": 4058.580322265625
   },
   "Bérault": {
     "x": 6596.5679,
@@ -454,12 +458,12 @@ export const stationCoordinates: Record<string, { x: number; y: number }> = {
     "y": 2575
   },
   "Courcelles": {
-    "x": 3634.626220703125,
-    "y": 3678.05908203125
+    "x": 3204.067626953125,
+    "y": 2206.736083984375
   },
   "Solférino": {
-    "x": 3634.626220703125,
-    "y": 3678.05908203125
+    "x": 3618.9892578125,
+    "y": 3235.74169921875
   },
   "Plaisance": {
     "x": 3777.590576171875,

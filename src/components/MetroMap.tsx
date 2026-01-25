@@ -279,9 +279,9 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
           position: "absolute",
           top: "10px",
           right: "10px",
-          background: zoomMode ? "#667eea" : "rgba(255, 255, 255, 0.9)",
-          color: zoomMode ? "white" : "#333",
-          border: zoomMode ? "none" : "2px solid #667eea",
+          background: "rgba(255, 255, 255, 0.95)",
+          color: "#333",
+          border: "none",
           padding: "12px 24px",
           borderRadius: "8px",
           zIndex: 1000,
@@ -297,9 +297,9 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "scale(1)";
         }}
-        aria-label={zoomMode ? "Dézoom" : "Zoom Paris intramuros"}
+        aria-label={zoomMode ? "Vue élargie" : "Zoom Paris intramuros"}
       >
-        {zoomMode ? "🔍 Dézoom" : "🔍 Zoom"}
+        {zoomMode ? "Vue élargie" : "Zoom Paris intramuros"}
       </button>
 
       {/* Indicateur mode édition */}
@@ -363,7 +363,7 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
                 key={index}
                 cx={circle.x}
                 cy={circle.y}
-                r="150"
+                r="187.5"
                 fill="white"
                 className="reveal-circle"
               />

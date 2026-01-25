@@ -29,7 +29,7 @@ function App() {
   // Paroles complètes de la chanson (édité ou original)
   const lyrics = useMemo(
     () => (timingEditMode ? editedLyrics : metroLyrics),
-    [timingEditMode, editedLyrics]
+    [timingEditMode, editedLyrics],
   );
 
   // Synchronisation avec l'audio
@@ -88,7 +88,8 @@ function App() {
   // Gestion de la touche Espace pour Play/Pause et Ctrl+R pour le mode édition
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.code === "Space" && e.target === document.body) {
+      // Touche Espace pour Play/Pause - fonctionne à tout moment
+      if (e.code === "Space") {
         e.preventDefault();
         setIsPlaying((prev) => !prev);
       }
@@ -98,7 +99,7 @@ function App() {
         e.preventDefault();
         setTimingEditMode((prev) => !prev);
         console.log(
-          `Mode édition timing: ${!timingEditMode ? "ACTIVÉ" : "DÉSACTIVÉ"}`
+          `Mode édition timing: ${!timingEditMode ? "ACTIVÉ" : "DÉSACTIVÉ"}`,
         );
       }
 
@@ -121,7 +122,7 @@ function App() {
         ...newLyrics[lineIndex],
         startTime:
           Math.round(
-            Math.max(0, newLyrics[lineIndex].startTime + delta) * 100
+            Math.max(0, newLyrics[lineIndex].startTime + delta) * 100,
           ) / 100,
       };
       return newLyrics;
@@ -131,7 +132,7 @@ function App() {
   const adjustStationTimestamp = (
     lineIndex: number,
     stationIndex: number,
-    delta: number
+    delta: number,
   ) => {
     setEditedLyrics((prev) => {
       const newLyrics = [...prev];
@@ -140,7 +141,7 @@ function App() {
         ...newStations[stationIndex],
         timestamp:
           Math.round(
-            Math.max(0, newStations[stationIndex].timestamp + delta) * 100
+            Math.max(0, newStations[stationIndex].timestamp + delta) * 100,
           ) / 100,
       };
       newLyrics[lineIndex] = {
@@ -165,7 +166,7 @@ function App() {
       console.log(
         `✅ Décalé ${newLyrics.length - fromIndex} lignes de ${
           delta > 0 ? "+" : ""
-        }${delta}s à partir de l'index ${fromIndex}`
+        }${delta}s à partir de l'index ${fromIndex}`,
       );
       return newLyrics;
     });
@@ -184,8 +185,8 @@ function App() {
 
     console.log(
       `🎯 Décalage pour aligner la ligne [${nextLineIndex}] au temps actuel ${currentTime.toFixed(
-        1
-      )}s (delta: ${delta > 0 ? "+" : ""}${delta.toFixed(2)}s)`
+        1,
+      )}s (delta: ${delta > 0 ? "+" : ""}${delta.toFixed(2)}s)`,
     );
 
     shiftFromLine(nextLineIndex, delta);
