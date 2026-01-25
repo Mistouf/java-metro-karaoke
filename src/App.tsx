@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import "./App.css";
+import IntroPage from "./components/IntroPage";
 import LyricsDisplay from "./components/LyricsDisplay";
 import MetroMap from "./components/MetroMap";
 import { metroLyrics } from "./data/lyrics";
@@ -18,6 +19,7 @@ export interface LyricLine {
 }
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -54,7 +56,7 @@ function App() {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("ended", handleEnded);
     };
-  }, []);
+  }, [showIntro]); // Réattacher les listeners quand on change de page
 
   // Gestion Play/Pause
   useEffect(() => {
@@ -251,6 +253,13 @@ function App() {
   // Calcul du pourcentage de progression pour le gradient
   const progressPercentage = (currentTime / totalDuration) * 100;
 
+  // Formatage du temps en MM:SS
+  const formatTime = (timeInSeconds: number) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
+
   // Gestion du plein écran
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -259,6 +268,32 @@ function App() {
       document.exitFullscreen();
     }
   };
+
+  const handleStartKaraoke = () => {
+    setShowIntro(false);
+    // Démarrer automatiquement la lecture après un court délai
+    // pour laisser le temps au composant audio de se monter
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.error("Erreur lors du démarrage automatique:", error);
+            // Fallback: activer quand même isPlaying pour que le bouton soit correct
+            setIsPlaying(true);
+          });
+      }
+    }, 200);
+  };
+
+  // Afficher la page d'introduction en premier
+  if (showIntro) {
+    return <IntroPage onStart={handleStartKaraoke} />;
+  }
 
   return (
     <div className="app">
@@ -338,7 +373,7 @@ function App() {
               background: `linear-gradient(to right, #667eea 0%, #764ba2 ${progressPercentage}%, #e0e0e0 ${progressPercentage}%, #e0e0e0 100%)`,
             }}
           />
-          <div className="progress-time">{currentTime.toFixed(1)}s</div>
+          <div className="progress-time">{formatTime(currentTime)}</div>
         </div>
 
         <section className="map-section">
