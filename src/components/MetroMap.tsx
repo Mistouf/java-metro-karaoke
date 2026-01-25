@@ -17,10 +17,10 @@ const ORIGINAL_HEIGHT = 5257.141;
 
 // Zone zoomée calculée à partir des stations intra-muros et portes du périphérique
 // Limites: stations entre X:2884 et X:6596, Y:650 et Y:4498
-// Crop à gauche pour ignorer tout avant X:1260
-const ZOOM_X = 1260;
+// Crop à gauche pour ignorer tout avant X:1100
+const ZOOM_X = 1100;
 const ZOOM_Y = 800;
-const ZOOM_WIDTH = 5336; // 6596 - 1260
+const ZOOM_WIDTH = 5496; // 6596 - 1100
 const ZOOM_HEIGHT = 3800;
 
 function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
@@ -30,7 +30,7 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
   const [editMode, setEditMode] = useState(false);
-  const [zoomMode, setZoomMode] = useState(false);
+  const [zoomMode, setZoomMode] = useState(true);
   const [customCoords, setCustomCoords] = useState<
     Record<string, { x: number; y: number }>
   >({});
@@ -333,18 +333,27 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
         viewBox={viewBox}
         style={{ zIndex: 1 }}
       >
+        <defs>
+          <clipPath id="crop-left">
+            <rect x="1100" y="0" width="6429.0861" height="5257.141" />
+          </clipPath>
+        </defs>
         <image
           ref={grayImageRef}
           href="/Carte_Métro_de_Paris.svg"
           width="7529.0861"
           height="5257.141"
           style={{ filter: "grayscale(100%)" }}
+          clipPath="url(#crop-left)"
         />
       </svg>
 
       {/* Plan en couleur avec masque circulaire */}
       <svg className="metro-svg-overlay" viewBox={viewBox}>
         <defs>
+          <clipPath id="crop-left-color">
+            <rect x="1100" y="0" width="6429.0861" height="5257.141" />
+          </clipPath>
           <mask id="circle-mask">
             {/* Fond noir (invisible) */}
             <rect width="100%" height="100%" fill="black" />
@@ -369,6 +378,7 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
           width="7529.0861"
           height="5257.141"
           mask="url(#circle-mask)"
+          clipPath="url(#crop-left-color)"
         />
       </svg>
 

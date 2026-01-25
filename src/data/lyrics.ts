@@ -174,7 +174,7 @@ export const metroLyrics: LyricLine[] = [
     ]
   },
   {
-    "text": "Montparnasse, faut qu'j'vide mes bourses Rue de la Pompe",
+    "text": "Montparnasse, faut qu'j'vide mes Bourses Rue de la Pompe",
     "startTime": 40.43,
     "stations": [
       {
@@ -182,7 +182,7 @@ export const metroLyrics: LyricLine[] = [
         "timestamp": 0.5
       },
       {
-        "name": "Bourse",
+        "name": "Bourses",
         "timestamp": 2
       },
       {
@@ -476,7 +476,7 @@ export const metroLyrics: LyricLine[] = [
       },
       {
         "name": "Pas Saint-Cloud",
-        "timestamp": 2.2
+        "timestamp": 2
       }
     ]
   },
@@ -544,7 +544,7 @@ export const metroLyrics: LyricLine[] = [
       },
       {
         "name": "Port Royal",
-        "timestamp": 2.5
+        "timestamp": 2.2
       }
     ]
   },
@@ -608,11 +608,11 @@ export const metroLyrics: LyricLine[] = [
       },
       {
         "name": "La Fourche",
-        "timestamp": 2.8
+        "timestamp": 2.6
       },
       {
         "name": "Hoche",
-        "timestamp": 3.5
+        "timestamp": 2.8
       }
     ]
   },
@@ -640,11 +640,11 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Vaugirard",
-        "timestamp": 3.4
+        "timestamp": 1.4
       },
       {
         "name": "Pyrénées",
-        "timestamp": 4.3
+        "timestamp": 2.3
       }
     ]
   },
@@ -654,7 +654,7 @@ export const metroLyrics: LyricLine[] = [
     "stations": [
       {
         "name": "Marais",
-        "timestamp": 141.8
+        "timestamp": 1.8
       },
       {
         "name": "Rennes",
