@@ -244,10 +244,28 @@ function App() {
     if (audioRef.current) {
       audioRef.current.currentTime = newTime;
     }
+    // @ts-ignore
+    if (window.gtag) {
+      // @ts-ignore
+      window.gtag("event", "seek", {
+        event_category: "Media Control",
+        event_label: "Progress Bar",
+        value: Math.round(newTime),
+      });
+    }
   };
 
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
+    const newState = !isPlaying;
+    setIsPlaying(newState);
+    // @ts-ignore
+    if (window.gtag) {
+      // @ts-ignore
+      window.gtag("event", newState ? "play" : "pause", {
+        event_category: "Media Control",
+        event_label: "Audio Player",
+      });
+    }
   };
 
   // Calcul du pourcentage de progression pour le gradient
@@ -264,8 +282,24 @@ function App() {
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
+      // @ts-ignore
+      if (window.gtag) {
+        // @ts-ignore
+        window.gtag("event", "toggle_fullscreen", {
+          event_category: "User Interaction",
+          event_label: "App - Enter Fullscreen",
+        });
+      }
     } else {
       document.exitFullscreen();
+      // @ts-ignore
+      if (window.gtag) {
+        // @ts-ignore
+        window.gtag("event", "toggle_fullscreen", {
+          event_category: "User Interaction",
+          event_label: "App - Exit Fullscreen",
+        });
+      }
     }
   };
 

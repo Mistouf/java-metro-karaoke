@@ -5,11 +5,38 @@ interface IntroPageProps {
 }
 
 export default function IntroPage({ onStart }: IntroPageProps) {
+  const handleStart = () => {
+    // @ts-ignore
+    if (window.gtag) {
+      // @ts-ignore
+      window.gtag("event", "start_karaoke", {
+        event_category: "User Interaction",
+        event_label: "Start Karaoke Button",
+      });
+    }
+    onStart();
+  };
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
+      // @ts-ignore
+      if (window.gtag) {
+        // @ts-ignore
+        window.gtag("event", "toggle_fullscreen", {
+          event_category: "User Interaction",
+          event_label: "Intro Page - Enter Fullscreen",
+        });
+      }
     } else {
       document.exitFullscreen();
+      // @ts-ignore
+      if (window.gtag) {
+        // @ts-ignore
+        window.gtag("event", "toggle_fullscreen", {
+          event_category: "User Interaction",
+          event_label: "Intro Page - Exit Fullscreen",
+        });
+      }
     }
   };
 
@@ -64,7 +91,7 @@ export default function IntroPage({ onStart }: IntroPageProps) {
           de l'album <strong>Hawaï</strong> de <strong>Java</strong>.
         </p>
 
-        <div className="intro-image-container" onClick={onStart}>
+        <div className="intro-image-container" onClick={handleStart}>
           <img
             src="/JAVA - HAWAÏ Jacket.jpg"
             alt="Java - Album Hawaï"
@@ -91,6 +118,16 @@ export default function IntroPage({ onStart }: IntroPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="streaming-button deezer"
+                onClick={() => {
+                  // @ts-ignore
+                  if (window.gtag) {
+                    // @ts-ignore
+                    window.gtag("event", "click_streaming_link", {
+                      event_category: "External Link",
+                      event_label: "Deezer",
+                    });
+                  }
+                }}
               >
                 <svg viewBox="0 0 32 32" className="streaming-logo">
                   <path
@@ -106,6 +143,16 @@ export default function IntroPage({ onStart }: IntroPageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="streaming-button spotify"
+                onClick={() => {
+                  // @ts-ignore
+                  if (window.gtag) {
+                    // @ts-ignore
+                    window.gtag("event", "click_streaming_link", {
+                      event_category: "External Link",
+                      event_label: "Spotify",
+                    });
+                  }
+                }}
               >
                 <svg viewBox="0 0 24 24" className="streaming-logo">
                   <path
@@ -125,6 +172,16 @@ export default function IntroPage({ onStart }: IntroPageProps) {
                 href="https://github.com/Mistouf/java-metro-karaoke"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  // @ts-ignore
+                  if (window.gtag) {
+                    // @ts-ignore
+                    window.gtag("event", "click_github_link", {
+                      event_category: "External Link",
+                      event_label: "GitHub Repository",
+                    });
+                  }
+                }}
               >
                 Lionel Jourdan
               </a>
