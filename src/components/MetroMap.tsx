@@ -337,13 +337,23 @@ function MetroMap({ highlightedStations, revealedStations }: MetroMapProps) {
           <clipPath id="crop-left">
             <rect x="1100" y="0" width="6429.0861" height="5257.141" />
           </clipPath>
+          {/* Filtre SVG natif pour le niveau de gris (compatible Safari) */}
+          <filter id="grayscale">
+            <feColorMatrix
+              type="matrix"
+              values="0.33 0.33 0.33 0 0
+                      0.33 0.33 0.33 0 0
+                      0.33 0.33 0.33 0 0
+                      0    0    0    1 0"
+            />
+          </filter>
         </defs>
         <image
           ref={grayImageRef}
           href="/Carte_Métro_de_Paris.svg"
           width="7529.0861"
           height="5257.141"
-          style={{ filter: "grayscale(100%)" }}
+          filter="url(#grayscale)"
           clipPath="url(#crop-left)"
         />
       </svg>
