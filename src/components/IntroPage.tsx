@@ -188,8 +188,7 @@ export default function IntroPage({ onStart }: IntroPageProps) {
               .
             </p>
             <p className="intro-authorization">
-              La demande auprès du groupe Java est en cours pour demander
-              l'autorisation de diffusion sur ce site dédié...
+              Ce site a reçu l'accord du groupe Java le 23 mars 2026. La vérité, ça fait plaisir.
             </p>
           </div>
         </div>
